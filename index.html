@@ -1,0 +1,2663 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sophia Dachraoui — Écriture · Littérature · Recherche · Transmission</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --ivory: #FAF8F5;
+            --papyrus: #F3EEE6;
+            --ink: #111827;
+            --graphite: #334155;
+            --burgundy: #6B1D2F;
+            --burgundy-hover: #551524;
+            --sand: #E5E0D8;
+            --gold: #D4AF37;
+            --gold-soft: #C4A35A;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--ivory);
+            color: var(--ink);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .font-serif { font-family: 'Cormorant Garamond', Georgia, serif; }
+        .font-sans { font-family: 'Inter', sans-serif; }
+
+        .french-punct::before {
+            content: '\202F';
+        }
+
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: var(--ink);
+            color: var(--ivory);
+            padding: 8px 16px;
+            z-index: 10000;
+            transition: top 0.2s;
+        }
+        .skip-link:focus { top: 0; }
+
+        :focus-visible {
+            outline: 2px solid var(--burgundy);
+            outline-offset: 2px;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.01ms !important;
+            }
+            html { scroll-behavior: auto; }
+        }
+
+        .hairline {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold-soft), transparent);
+            opacity: 0.6;
+        }
+        .hairline-left {
+            height: 1px;
+            background: linear-gradient(90deg, var(--gold-soft), transparent);
+            opacity: 0.6;
+        }
+
+        .drop-cap::first-letter {
+            float: left;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 4.5rem;
+            line-height: 0.8;
+            padding-right: 0.5rem;
+            padding-top: 0.1rem;
+            color: var(--burgundy);
+            font-weight: 600;
+        }
+
+        .glass-nav {
+            background: rgba(250, 248, 245, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--sand);
+        }
+
+        .bookplate {
+            position: relative;
+            width: 280px;
+            height: 360px;
+        }
+        .bookplate-frame {
+            position: absolute;
+            inset: 0;
+            border: 1px solid var(--gold-soft);
+            opacity: 0.4;
+        }
+        .bookplate-inner {
+            position: absolute;
+            inset: 12px;
+            border: 1px solid var(--gold-soft);
+            opacity: 0.3;
+        }
+        .bookplate-circle {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 140px;
+            height: 140px;
+            border: 1px solid var(--burgundy);
+            border-radius: 50%;
+            opacity: 0.25;
+        }
+        .bookplate-square {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(45deg);
+            width: 100px;
+            height: 100px;
+            border: 1px solid var(--graphite);
+            opacity: 0.2;
+        }
+        .bookplate-door {
+            position: absolute;
+            bottom: 60px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 60px;
+            border: 1px solid var(--burgundy);
+            border-bottom: none;
+            opacity: 0.3;
+        }
+        .bookplate-initial {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3rem;
+            color: var(--burgundy);
+            opacity: 0.15;
+            font-weight: 600;
+        }
+
+        .layout-asymmetric {
+            display: grid;
+            grid-template-columns: 1fr 1.618fr;
+            gap: 4rem;
+        }
+        .layout-reversed {
+            display: grid;
+            grid-template-columns: 1.618fr 1fr;
+            gap: 4rem;
+        }
+        .layout-full {
+            max-width: 680px;
+            margin: 0 auto;
+        }
+        .layout-split {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 3rem;
+        }
+
+        .pub-item {
+            display: grid;
+            grid-template-columns: 80px 1fr;
+            gap: 1.5rem;
+            padding: 1.5rem 0;
+            border-bottom: 1px solid var(--sand);
+            transition: padding-left 0.2s ease;
+        }
+        .pub-item:hover {
+            padding-left: 0.5rem;
+        }
+        .pub-year {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.25rem;
+            color: var(--gold-soft);
+            font-weight: 600;
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 2rem;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 1px;
+            background: linear-gradient(180deg, var(--gold-soft), transparent);
+        }
+        .timeline-item {
+            position: relative;
+            padding-bottom: 2.5rem;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -2rem;
+            top: 0.4rem;
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--ivory);
+            border: 1px solid var(--burgundy);
+            margin-left: -3px;
+        }
+
+        .book-object {
+            transform: rotate(-1deg);
+            transition: transform 0.3s ease;
+        }
+        .book-object:hover {
+            transform: rotate(0deg) translateY(-4px);
+        }
+        .book-spine {
+            position: absolute;
+            left: 0;
+            top: 4px;
+            bottom: 4px;
+            width: 12px;
+            background: linear-gradient(90deg, var(--burgundy), #8B2D3F);
+            border-radius: 2px 0 0 2px;
+        }
+
+        .course-featured {
+            position: relative;
+            background: var(--papyrus);
+            border: 1px solid var(--sand);
+        }
+        .course-compact {
+            background: var(--ivory);
+            border: 1px solid var(--sand);
+            transition: all 0.2s ease;
+        }
+        .course-compact:hover {
+            border-color: var(--gold-soft);
+        }
+
+        .paywall-fade {
+            position: relative;
+        }
+        .paywall-fade::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 120px;
+            background: linear-gradient(transparent, var(--ivory));
+        }
+
+        .drawer {
+            position: fixed;
+            inset: 0;
+            z-index: 100;
+            pointer-events: none;
+        }
+        .drawer.active {
+            pointer-events: all;
+        }
+        .drawer-backdrop {
+            position: absolute;
+            inset: 0;
+            background: rgba(17, 24, 39, 0.4);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .drawer.active .drawer-backdrop {
+            opacity: 1;
+        }
+        .drawer-panel {
+            position: absolute;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            width: 320px;
+            max-width: 85vw;
+            background: var(--ivory);
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+            overflow-y: auto;
+        }
+        .drawer.active .drawer-panel {
+            transform: translateX(0);
+        }
+
+        .lock-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.375rem;
+            padding: 0.25rem 0.75rem;
+            background: var(--papyrus);
+            border: 1px solid var(--sand);
+            font-size: 0.75rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            color: var(--graphite);
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.875rem 2rem;
+            background: var(--burgundy);
+            color: white;
+            font-size: 0.875rem;
+            font-weight: 500;
+            letter-spacing: 0.02em;
+            transition: all 0.2s ease;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .btn-primary:hover {
+            background: var(--burgundy-hover);
+        }
+
+        .btn-ghost {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.875rem 2rem;
+            border: 1px solid var(--ink);
+            color: var(--ink);
+            font-size: 0.875rem;
+            font-weight: 500;
+            letter-spacing: 0.02em;
+            transition: all 0.2s ease;
+            background: transparent;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .btn-ghost:hover {
+            background: var(--ink);
+            color: var(--ivory);
+        }
+
+        .input-editorial {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            background: var(--ivory);
+            border: 1px solid var(--sand);
+            font-size: 0.9375rem;
+            transition: border-color 0.2s ease;
+            font-family: 'Inter', sans-serif;
+        }
+        .input-editorial:focus {
+            outline: none;
+            border-color: var(--burgundy);
+        }
+
+        .stars {
+            display: flex;
+            gap: 0.125rem;
+        }
+        .star {
+            color: var(--gold);
+        }
+        .star.empty {
+            color: var(--sand);
+        }
+
+        .kicker {
+            font-size: 0.6875rem;
+            font-weight: 500;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--graphite);
+        }
+
+        .section {
+            padding: 5rem 0;
+        }
+        @media (min-width: 1024px) {
+            .section { padding: 7rem 0; }
+        }
+
+        .container-editorial {
+            width: 100%;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+        @media (min-width: 768px) {
+            .container-editorial { padding: 0 2.5rem; }
+        }
+        @media (min-width: 1280px) {
+            .container-editorial { padding: 0 4rem; }
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-up {
+            animation: fadeUp 0.6s ease forwards;
+        }
+
+        .text-balance { text-wrap: balance; }
+        .leading-tight { line-height: 1.2; }
+        
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+        .view {
+            display: none;
+        }
+        .view.active {
+            display: block;
+        }
+
+        .search-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 200;
+            background: rgba(250, 248, 245, 0.97);
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 15vh;
+        }
+        .search-overlay.active {
+            display: flex;
+        }
+
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 300;
+            background: rgba(17, 24, 39, 0.5);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+        }
+        .modal-overlay.active {
+            display: flex;
+        }
+        .modal-panel {
+            background: var(--ivory);
+            max-width: 520px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 2rem;
+            position: relative;
+        }
+
+        .premium-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.375rem;
+            padding: 0.375rem 1rem;
+            background: var(--burgundy);
+            color: white;
+            font-size: 0.6875rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .price-strike {
+            text-decoration: line-through;
+            color: var(--graphite);
+            opacity: 0.6;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            padding: 1rem 1.5rem;
+            background: var(--ink);
+            color: var(--ivory);
+            font-size: 0.875rem;
+            z-index: 500;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .status-success { background: #ECFDF5; color: #065F46; }
+        .status-pending { background: #FEF3C7; color: #92400E; }
+
+        @media (max-width: 767px) {
+            .layout-asymmetric,
+            .layout-reversed,
+            .layout-split {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            .bookplate {
+                width: 200px;
+                height: 260px;
+                margin: 0 auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Aller au contenu principal</a>
+
+    <div class="search-overlay" id="searchOverlay">
+        <div class="container-editorial w-full max-w-2xl">
+            <div class="flex items-center gap-4 mb-8">
+                <i data-lucide="search" class="w-6 h-6" style="color: var(--graphite);"></i>
+                <input type="text" id="searchInput" placeholder="Rechercher un article, un livre, un cours..." class="flex-1 bg-transparent text-2xl font-serif border-none outline-none" style="color: var(--ink);">
+                <button onclick="closeSearch()" class="p-2 hover:bg-sand/50 transition-colors">
+                    <i data-lucide="x" class="w-6 h-6"></i>
+                </button>
+            </div>
+            <div class="hairline-left mb-6"></div>
+            <div id="searchResults" class="space-y-4">
+                <p style="color: var(--graphite);">Commencez à taper pour rechercher...</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="drawer" id="mobileDrawer">
+        <div class="drawer-backdrop" onclick="closeDrawer()"></div>
+        <div class="drawer-panel p-6">
+            <div class="flex justify-between items-center mb-8">
+                <span class="font-serif text-xl">Menu</span>
+                <button onclick="closeDrawer()" class="p-2">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+            <nav class="space-y-1" id="drawerNav"></nav>
+            <div class="hairline my-6"></div>
+            <button onclick="openSearch(); closeDrawer()" class="flex items-center gap-3 w-full p-3 text-left hover:bg-papyrus transition-colors">
+                <i data-lucide="search" class="w-4 h-4"></i>
+                <span>Rechercher</span>
+            </button>
+        </div>
+    </div>
+
+    <header class="glass-nav fixed top-0 left-0 right-0 z-50">
+        <div class="container-editorial">
+            <div class="flex items-center justify-between h-16">
+                <a href="#accueil" onclick="navigateTo('accueil'); return false;" class="font-serif text-lg tracking-wide" style="color: var(--ink);">S. Dachraoui</a>
+                <nav class="hidden lg:flex items-center gap-8" id="desktopNav"></nav>
+                <div class="flex items-center gap-3">
+                    <button onclick="openSearch()" class="hidden md:flex p-2 hover:bg-sand/50 transition-colors" aria-label="Rechercher">
+                        <i data-lucide="search" class="w-4 h-4"></i>
+                    </button>
+                    <a href="#connexion" id="navMemberBtn" onclick="navigateTo('connexion'); return false;" class="hidden md:flex items-center gap-2 px-4 py-2 text-sm font-medium transition-colors" style="background: var(--papyrus); color: var(--ink);">
+                        <i data-lucide="lock" class="w-3.5 h-3.5"></i>
+                        Espace Membre
+                    </a>
+                    <div id="navUserArea" class="hidden md:flex items-center gap-3"></div>
+                    <button onclick="openDrawer()" class="lg:hidden p-2" aria-label="Menu">
+                        <i data-lucide="menu" class="w-5 h-5"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="h-16"></div>
+
+    <main id="main-content">
+        <div class="view active" id="view-accueil">
+            <section class="section pt-8 pb-16 lg:pt-16 lg:pb-24">
+                <div class="container-editorial">
+                    <div class="layout-asymmetric items-center">
+                        <div class="order-2 lg:order-1">
+                            <p class="kicker mb-6">Écriture · Littérature · Recherche · Transmission</p>
+                            <h1 class="font-serif text-5xl md:text-6xl lg:text-7xl font-semibold leading-tight mb-6 text-balance" style="color: var(--ink);">Sophia<br>Dachraoui</h1>
+                            <p class="font-serif text-xl md:text-2xl italic mb-8 text-balance" style="color: var(--graphite); max-width: 480px;">«&nbsp;Lire l'imaginaire pour écrire le réel&nbsp;»</p>
+                            <p class="text-sm mb-10" style="color: var(--graphite); max-width: 420px;">Docteure en littérature comparée. Chercheuse entre Genève et Strasbourg. Anthropologie de l'imaginaire, symboles jungiens, Proust, Beckett, littératures africaines.</p>
+                            <div class="flex flex-wrap gap-4">
+                                <a href="#apropos" onclick="navigateTo('apropos'); return false;" class="btn-primary">Découvrir son travail <i data-lucide="arrow-right" class="w-4 h-4"></i></a>
+                                <a href="#publications" onclick="navigateTo('publications'); return false;" class="btn-ghost">Explorer les publications</a>
+                            </div>
+                        </div>
+                        <div class="order-1 lg:order-2 flex justify-center lg:justify-end">
+                            <div class="bookplate">
+                                <div class="bookplate-frame"></div>
+                                <div class="bookplate-inner"></div>
+                                <div class="bookplate-circle"></div>
+                                <div class="bookplate-square"></div>
+                                <div class="bookplate-door"></div>
+                                <span class="bookplate-initial">S</span>
+                                <p class="absolute bottom-8 left-0 right-0 text-center text-xs" style="color: var(--graphite); opacity: 0.7;">Portrait à paraître<br>visuel de démonstration</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="hairline"></div>
+
+            <section class="section" id="section-apropos">
+                <div class="container-editorial">
+                    <div class="layout-reversed">
+                        <div>
+                            <p class="kicker mb-4">À propos</p>
+                            <h2 class="font-serif text-3xl md:text-4xl font-semibold mb-6 leading-tight">Entre l'archive et le vivant</h2>
+                            <div class="space-y-4 font-serif text-lg" style="color: var(--graphite);">
+                                <p>Ma recherche naît d'une conviction simple&nbsp;: la littérature est un terrain d'anthropologie. Chaque texte porte en lui les strates d'une culture du désir, d'une économie du deuil, d'une topographie de l'imaginaire.</p>
+                                <p>De Proust à Beckett, des littératures africaines contemporaines à la psychanalyse jungienne, je travaille à tisser des passerelles que l'institution sépare trop souvent. L'enseignement du FLE, la direction de séminaires universitaires, l'écriture critique et créative sont pour moi les faces d'un même geste&nbsp;: transmettre la littérature comme expérience transformante.</p>
+                            </div>
+                            <a href="#apropos" onclick="navigateTo('apropos'); return false;" class="inline-flex items-center gap-2 mt-6 text-sm font-medium" style="color: var(--burgundy);">Lire la suite <i data-lucide="arrow-right" class="w-4 h-4"></i></a>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="p-8 border" style="border-color: var(--sand);">
+                                <p class="font-serif text-2xl italic leading-relaxed" style="color: var(--burgundy);">«&nbsp;Le symbole n'est pas ce qui cache la vérité, mais ce qui la rend lisible dans l'intervalle du dire.&nbsp;»</p>
+                                <p class="mt-4 text-sm" style="color: var(--graphite);">— Devise du site</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="hairline"></div>
+
+            <section class="section" style="background: var(--papyrus);">
+                <div class="container-editorial">
+                    <p class="kicker mb-4">Parcours & recherche</p>
+                    <h2 class="font-serif text-3xl md:text-4xl font-semibold mb-12">Axes de travail</h2>
+                    <div class="grid md:grid-cols-2 gap-12">
+                        <div class="timeline">
+                            <div class="timeline-item">
+                                <p class="font-medium text-sm mb-1">2023 — aujourd'hui</p>
+                                <p class="font-serif text-lg">Recherche indépendante · Genève & Strasbourg</p>
+                                <p class="text-sm mt-1" style="color: var(--graphite);">Anthropologie de l'imaginaire, préparation d'ouvrages</p>
+                            </div>
+                            <div class="timeline-item">
+                                <p class="font-medium text-sm mb-1">2019 — 2023</p>
+                                <p class="font-serif text-lg">Doctorat en littérature comparée</p>
+                                <p class="text-sm mt-1" style="color: var(--graphite);">Université de Strasbourg</p>
+                            </div>
+                            <div class="timeline-item">
+                                <p class="font-medium text-sm mb-1">2017 — 2019</p>
+                                <p class="font-serif text-lg">Enseignement FLE & littérature</p>
+                                <p class="text-sm mt-1" style="color: var(--graphite);">Suisse romande</p>
+                            </div>
+                            <div class="timeline-item">
+                                <p class="font-medium text-sm mb-1">2015 — 2017</p>
+                                <p class="font-serif text-lg">Master Littérature comparée</p>
+                                <p class="text-sm mt-1" style="color: var(--graphite);">Université de Strasbourg</p>
+                            </div>
+                        </div>
+                        <div class="space-y-6">
+                            <div class="p-6 border-l-2" style="border-color: var(--burgundy); background: var(--ivory);">
+                                <h3 class="font-serif text-xl font-semibold mb-2">Anthropologie de l'imaginaire</h3>
+                                <p class="text-sm" style="color: var(--graphite);">Les figures mythiques dans la littérature contemporaine africaine. Réinvention des archétypes et résilience narrative.</p>
+                            </div>
+                            <div class="p-6 border-l-2" style="border-color: var(--gold-soft); background: var(--ivory);">
+                                <h3 class="font-serif text-xl font-semibold mb-2">Symboles jungiens & modernisme</h3>
+                                <p class="text-sm" style="color: var(--graphite);">Proust et Beckett lus à travers le prisme de la psychologie des profondeurs. L'ombre, l'anima, le vieux sage dans la prose du XX<sup>e</sup> siècle.</p>
+                            </div>
+                            <div class="p-6 border-l-2" style="border-color: var(--graphite); background: var(--ivory);">
+                                <h3 class="font-serif text-xl font-semibold mb-2">Transmission & pédagogie</h3>
+                                <p class="text-sm" style="color: var(--graphite);">Didactique du français langue étrangère, séminaires de recherche, accompagnement à l'écriture académique.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="hairline"></div>
+
+            <section class="section">
+                <div class="container-editorial">
+                    <p class="kicker mb-4">Ouvrage à paraître</p>
+                    <div class="layout-asymmetric items-start">
+                        <div>
+                            <div class="book-object relative inline-block">
+                                <div class="relative bg-white p-8 shadow-lg" style="width: 260px;">
+                                    <div class="book-spine"></div>
+                                    <div class="pl-4">
+                                        <p class="text-xs uppercase tracking-widest mb-4" style="color: var(--gold-soft);">Essai</p>
+                                        <h3 class="font-serif text-2xl font-semibold leading-tight mb-3">La Chambre<br>des Signes</h3>
+                                        <p class="text-sm italic mb-4" style="color: var(--graphite);">Archétypes et espaces intérieurs dans la prose moderne</p>
+                                        <div class="hairline-left my-4"></div>
+                                        <p class="text-xs" style="color: var(--graphite);">Sophia Dachraoui</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="mt-4 text-xs" style="color: var(--graphite);"><span class="lock-badge">titre de travail — démonstration</span></p>
+                        </div>
+                        <div>
+                            <h2 class="font-serif text-3xl md:text-4xl font-semibold mb-6">Un essai sur l'espace symbolique</h2>
+                            <dl class="space-y-4 mb-8">
+                                <div class="flex gap-4"><dt class="text-sm font-medium" style="color: var(--graphite); min-width: 120px;">Genre</dt><dd class="text-sm">Essai de littérature comparée</dd></div>
+                                <div class="flex gap-4"><dt class="text-sm font-medium" style="color: var(--graphite); min-width: 120px;">Éditeur</dt><dd class="text-sm">À confirmer</dd></div>
+                                <div class="flex gap-4"><dt class="text-sm font-medium" style="color: var(--graphite); min-width: 120px;">Parution</dt><dd class="text-sm">2025 — 2026 (prévision)</dd></div>
+                                <div class="flex gap-4"><dt class="text-sm font-medium" style="color: var(--graphite); min-width: 120px;">Pages</dt><dd class="text-sm">~320</dd></div>
+                                <div class="flex gap-4"><dt class="text-sm font-medium" style="color: var(--graphite); min-width: 120px;">ISBN</dt><dd class="text-sm">À attribution</dd></div>
+                            </dl>
+                            <p class="font-serif text-lg mb-6" style="color: var(--graphite);">De la chambre de Marcel à l'urne de Malone, des caves de la mémoire proustienne aux espaces clos beckettiens, cet essai interroge la topologie de l'âme moderne. La chambre n'y est pas seulement un décor&nbsp;: elle est le lieu où le symbole se fait habitable.</p>
+                            <button onclick="showToast('Précommande disponible prochainement')" class="btn-ghost"><i data-lucide="bell" class="w-4 h-4"></i> M'avertir de la parution</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="hairline"></div>
+
+            <section class="section">
+                <div class="container-editorial">
+                    <div class="flex items-end justify-between mb-12">
+                        <div>
+                            <p class="kicker mb-4">Publications</p>
+                            <h2 class="font-serif text-3xl md:text-4xl font-semibold">Dernières parutions</h2>
+                        </div>
+                        <a href="#publications" onclick="navigateTo('publications'); return false;" class="hidden md:flex items-center gap-2 text-sm" style="color: var(--burgundy);">Tout voir <i data-lucide="arrow-right" class="w-4 h-4"></i></a>
+                    </div>
+                    <div id="homePublications"></div>
+                </div>
+            </section>
+
+            <div class="hairline"></div>
+
+            <section class="section" style="background: var(--papyrus);">
+                <div class="container-editorial">
+                    <div class="flex items-end justify-between mb-12">
+                        <div>
+                            <p class="kicker mb-4">Articles</p>
+                            <h2 class="font-serif text-3xl md:text-4xl font-semibold">Essais récents</h2>
+                        </div>
+                        <a href="#publications" onclick="navigateTo('publications'); return false;" class="hidden md:flex items-center gap-2 text-sm" style="color: var(--burgundy);">Tous les articles <i data-lucide="arrow-right" class="w-4 h-4"></i></a>
+                    </div>
+                    <div class="grid md:grid-cols-3 gap-8" id="homeArticles"></div>
+                </div>
+            </section>
+
+            <div class="hairline"></div>
+
+            <section class="section">
+                <div class="container-editorial">
+                    <p class="kicker mb-4">Enseignement</p>
+                    <h2 class="font-serif text-3xl md:text-4xl font-semibold mb-12">Cours & séminaires</h2>
+                    <div class="grid lg:grid-cols-3 gap-6">
+                        <div class="lg:col-span-2 course-featured p-8">
+                            <div class="flex items-start justify-between mb-6">
+                                <div>
+                                    <span class="premium-badge mb-4 inline-flex">Séminaire universitaire</span>
+                                    <h3 class="font-serif text-2xl font-semibold mt-4">Proust et le temps retrouvé de l'image</h3>
+                                </div>
+                                <span class="font-serif text-3xl font-semibold" style="color: var(--burgundy);">480&nbsp;CHF</span>
+                            </div>
+                            <p class="mb-6" style="color: var(--graphite); max-width: 540px;">Séminaire de recherche sur la visualité proustienne. De la madeleine à la dernière page de la Recherche, une lecture des mécanismes de la mémoire involontaire comme poétique de l'image mentale. 12 séances, bibliographie commentée, accès aux archives de la BnF.</p>
+                            <div class="flex flex-wrap gap-4 items-center">
+                                <button onclick="navigateTo('coursDetail?id=course-1')" class="btn-primary">Voir le programme <i data-lucide="arrow-right" class="w-4 h-4"></i></button>
+                                <span class="text-sm" style="color: var(--graphite);"><i data-lucide="calendar" class="w-4 h-4 inline mr-1"></i> Prochaine session : janvier 2025</span>
+                            </div>
+                        </div>
+                        <div class="course-compact p-6">
+                            <span class="lock-badge mb-4 inline-flex">Module privé</span>
+                            <h3 class="font-serif text-xl font-semibold mb-3">Jung et la littérature</h3>
+                            <p class="text-sm mb-4" style="color: var(--graphite);">Introduction aux archétypes jungiens à travers la lecture de textes modernes. 6 séances en présentiel ou distanciel.</p>
+                            <div class="flex items-center justify-between">
+                                <span class="font-serif text-xl font-semibold" style="color: var(--burgundy);">360&nbsp;CHF</span>
+                                <button onclick="navigateTo('coursDetail?id=course-2')" class="text-sm font-medium" style="color: var(--burgundy);">Détails</button>
+                            </div>
+                        </div>
+                        <div class="course-compact p-6 lg:col-start-3">
+                            <span class="lock-badge mb-4 inline-flex">Ressources</span>
+                            <h3 class="font-serif text-xl font-semibold mb-3">FLE & littérature</h3>
+                            <p class="text-sm mb-4" style="color: var(--graphite);">Cahier pédagogique et méthodologie pour l'enseignement du français langue étrangère par la littérature.</p>
+                            <div class="flex items-center justify-between">
+                                <span class="font-serif text-xl font-semibold" style="color: var(--burgundy);">120&nbsp;CHF</span>
+                                <button onclick="navigateTo('coursDetail?id=course-3')" class="text-sm font-medium" style="color: var(--burgundy);">Détails</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="hairline"></div>
+
+            <section class="section">
+                <div class="container-editorial text-center max-w-2xl mx-auto">
+                    <p class="kicker mb-4">Lectures approfondies</p>
+                    <h2 class="font-serif text-3xl md:text-4xl font-semibold mb-6">Espace Membre</h2>
+                    <p class="mb-8" style="color: var(--graphite);">Accédez aux essais complets, aux archives de séminaires, aux recensions inédites et aux prépublications. Un espace de recherche vivant, mis à jour chaque mois.</p>
+                    <div class="flex flex-wrap justify-center gap-6 mb-10">
+                        <div class="text-center">
+                            <p class="font-serif text-3xl font-semibold" style="color: var(--burgundy);">48&nbsp;CHF</p>
+                            <p class="text-sm mt-1" style="color: var(--graphite);">Lecteur · 1 an</p>
+                        </div>
+                        <div class="w-px" style="background: var(--sand);"></div>
+                        <div class="text-center">
+                            <p class="font-serif text-3xl font-semibold" style="color: var(--burgundy);">96&nbsp;CHF</p>
+                            <p class="text-sm mt-1" style="color: var(--graphite);">Chercheur · 1 an</p>
+                        </div>
+                    </div>
+                    <a href="#inscription" onclick="navigateTo('inscription'); return false;" class="btn-primary"><i data-lucide="lock" class="w-4 h-4"></i> Devenir membre</a>
+                </div>
+            </section>
+
+            <div class="hairline"></div>
+
+            <section class="section" style="background: var(--papyrus);">
+                <div class="container-editorial">
+                    <p class="kicker mb-4">Communauté</p>
+                    <h2 class="font-serif text-3xl md:text-4xl font-semibold mb-12">Appels à contribution</h2>
+                    <div class="grid md:grid-cols-2 gap-8" id="homeCalls"></div>
+                    <div class="mt-12 p-8 border text-center" style="border-color: var(--sand); background: var(--ivory);">
+                        <h3 class="font-serif text-xl font-semibold mb-3">Proposer une contribution</h3>
+                        <p class="text-sm mb-6" style="color: var(--graphite); max-width: 480px; margin: 0 auto 1.5rem;">Vous travaillez sur l'imaginaire, les littératures africaines, le modernisme européen ou la pensée jungienne&nbsp;? Soumettez votre proposition.</p>
+                        <a href="#proposition" onclick="navigateTo('proposition'); return false;" class="btn-ghost"><i data-lucide="send" class="w-4 h-4"></i> Soumettre un projet</a>
+                    </div>
+                </div>
+            </section>
+
+            <div class="hairline"></div>
+
+            <section class="section">
+                <div class="container-editorial max-w-xl mx-auto text-center">
+                    <p class="kicker mb-4">Lettre de l'atelier</p>
+                    <h2 class="font-serif text-3xl font-semibold mb-4">Restez en regard</h2>
+                    <p class="text-sm mb-8" style="color: var(--graphite);">Une lettre par mois. Publications, lectures, appels, réflexions en cours. Sans traçage, sans revente.</p>
+                    <form onsubmit="handleNewsletterSubmit(event)" class="flex flex-col sm:flex-row gap-3">
+                        <input type="email" required placeholder="votre@email.ch" class="input-editorial flex-1 text-center sm:text-left">
+                        <button type="submit" class="btn-primary whitespace-nowrap">S'inscrire</button>
+                    </form>
+                </div>
+            </section>
+        </div>
+
+        <div class="view" id="view-apropos">
+            <section class="section pt-8">
+                <div class="container-editorial layout-full">
+                    <p class="kicker mb-4">À propos</p>
+                    <h1 class="font-serif text-4xl md:text-5xl font-semibold mb-8">Sophia Dachraoui</h1>
+                    <div class="prose prose-lg max-w-none">
+                        <p class="font-serif text-xl leading-relaxed mb-6" style="color: var(--graphite);">Docteure en littérature comparée de l'Université de Strasbourg, je vis et travaille entre la Suisse romande et l'Alsace. Mon parcours m'a conduite des salles de classe du FLE aux séminaires de recherche, en passant par l'écriture critique et la direction d'ouvrages collectifs.</p>
+                        <h2 class="font-serif text-2xl font-semibold mt-12 mb-4">Formation</h2>
+                        <ul class="space-y-3 mb-8">
+                            <li class="flex gap-4"><span class="text-sm font-medium" style="color: var(--gold-soft); min-width: 100px;">2023</span><span>Doctorat en littérature comparée, Université de Strasbourg</span></li>
+                            <li class="flex gap-4"><span class="text-sm font-medium" style="color: var(--gold-soft); min-width: 100px;">2017</span><span>Master Littérature comparée, Université de Strasbourg</span></li>
+                            <li class="flex gap-4"><span class="text-sm font-medium" style="color: var(--gold-soft); min-width: 100px;">2015</span><span>Licence Lettres modernes, Université de Strasbourg</span></li>
+                        </ul>
+                        <h2 class="font-serif text-2xl font-semibold mt-12 mb-4">Domaines de recherche</h2>
+                        <div class="grid sm:grid-cols-2 gap-4 mb-8">
+                            <div class="p-4 border" style="border-color: var(--sand);"><h3 class="font-medium mb-2">Anthropologie de l'imaginaire</h3><p class="text-sm" style="color: var(--graphite);">Figures mythiques, récits de fondation, transformations du merveilleux</p></div>
+                            <div class="p-4 border" style="border-color: var(--sand);"><h3 class="font-medium mb-2">Psychanalyse & littérature</h3><p class="text-sm" style="color: var(--graphite);">Lecture jungienne des modernismes européens</p></div>
+                            <div class="p-4 border" style="border-color: var(--sand);"><h3 class="font-medium mb-2">Marcel Proust</h3><p class="text-sm" style="color: var(--graphite);">Mémoire, image, temporalité dans la Recherche</p></div>
+                            <div class="p-4 border" style="border-color: var(--sand);"><h3 class="font-medium mb-2">Samuel Beckett</h3><p class="text-sm" style="color: var(--graphite);">Économie du récit, corps, voix et silence</p></div>
+                            <div class="p-4 border" style="border-color: var(--sand);"><h3 class="font-medium mb-2">Littératures africaines</h3><p class="text-sm" style="color: var(--graphite);">Écritures contemporaines, postcolonialisme critique, orature</p></div>
+                            <div class="p-4 border" style="border-color: var(--sand);"><h3 class="font-medium mb-2">Didactique du FLE</h3><p class="text-sm" style="color: var(--graphite);">Littérature comme médiation linguistique et culturelle</p></div>
+                        </div>
+                        <h2 class="font-serif text-2xl font-semibold mt-12 mb-4">Contact</h2>
+                        <p class="mb-2"><a href="mailto:contact@dachraoui.ch" class="hover:underline" style="color: var(--burgundy);">contact@dachraoui.ch</a></p>
+                        <p class="text-sm" style="color: var(--graphite);">Genève & Strasbourg</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <div class="view" id="view-parcours">
+            <section class="section pt-8">
+                <div class="container-editorial">
+                    <p class="kicker mb-4">Parcours</p>
+                    <h1 class="font-serif text-4xl md:text-5xl font-semibold mb-12">Chronologie</h1>
+                    <div class="max-w-2xl">
+                        <div class="timeline">
+                            <div class="timeline-item">
+                                <p class="font-medium mb-1">2023 — présent</p>
+                                <h3 class="font-serif text-xl font-semibold">Recherche indépendante</h3>
+                                <p class="mt-2" style="color: var(--graphite);">Préparation de l'ouvrage <em>La Chambre des Signes</em> (titre de travail). Séminaires privés, collaborations internationales, enseignement du FLE en Suisse romande.</p>
+                            </div>
+                            <div class="timeline-item">
+                                <p class="font-medium mb-1">2019 — 2023</p>
+                                <h3 class="font-serif text-xl font-semibold">Doctorat, Université de Strasbourg</h3>
+                                <p class="mt-2" style="color: var(--graphite);">Thèse sur les figures de l'imaginaire dans la prose moderne. Direction de travaux dirigés, participation à des colloques internationaux, publications dans des revues spécialisées.</p>
+                            </div>
+                            <div class="timeline-item">
+                                <p class="font-medium mb-1">2017 — 2019</p>
+                                <h3 class="font-serif text-xl font-semibold">Enseignement & formation</h3>
+                                <p class="mt-2" style="color: var(--graphite);">Cours de FLE en institutions suisses. Formation continue en didactique des langues. Premières publications critiques.</p>
+                            </div>
+                            <div class="timeline-item">
+                                <p class="font-medium mb-1">2015 — 2017</p>
+                                <h3 class="font-serif text-xl font-semibold">Master Littérature comparée</h3>
+                                <p class="mt-2" style="color: var(--graphite);">Mémoire sur Proust et l'image. Séjour de recherche à la Bibliothèque nationale de France. Découverte de la pensée jungienne.</p>
+                            </div>
+                            <div class="timeline-item">
+                                <p class="font-medium mb-1">2012 — 2015</p>
+                                <h3 class="font-serif text-xl font-semibold">Licence Lettres modernes</h3>
+                                <p class="mt-2" style="color: var(--graphite);">Université de Strasbourg. Spécialisation en littérature française et comparée. Premiers contacts avec les littératures africaines francophones.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <div class="view" id="view-recherche">
+            <section class="section pt-8">
+                <div class="container-editorial">
+                    <p class="kicker mb-4">Recherche</p>
+                    <h1 class="font-serif text-4xl md:text-5xl font-semibold mb-12">Axes de recherche</h1>
+                    <div class="space-y-16">
+                        <article class="layout-asymmetric items-start">
+                            <div><span class="font-serif text-6xl font-semibold" style="color: var(--sand);">01</span></div>
+                            <div>
+                                <h2 class="font-serif text-2xl font-semibold mb-4">Anthropologie de l'imaginaire</h2>
+                                <p class="mb-4" style="color: var(--graphite);">Comment les sociétés se racontent-elles à travers leurs récits de fondation&nbsp;? Quelle place occupe le merveilleux dans les littératures contemporaines qui en héritent tout en le déconstruisant&nbsp;? Cet axe croise lectures structurales et ethnographie littéraire pour saisir la résilience des figures mythiques dans la modernité.</p>
+                                <p class="text-sm" style="color: var(--graphite);">Publications associées : <em>Les Masques de la mémoire</em> (démonstration), <em>Récits de fondation et postcolonie</em> (démonstration)</p>
+                            </div>
+                        </article>
+                        <div class="hairline"></div>
+                        <article class="layout-reversed items-start">
+                            <div>
+                                <h2 class="font-serif text-2xl font-semibold mb-4">Symboles jungiens & modernisme européen</h2>
+                                <p class="mb-4" style="color: var(--graphite);">La psychologie analytique de C.G. Jung offre des outils précis pour lire les grandes architectures symboliques de la prose moderne. L'ombre proustienne, l'anima beckettienne, le vieux sage chez Kafka&nbsp;: autant de figures qui éclairent l'économie psychique des textes sans les réduire à des cas cliniques.</p>
+                                <p class="text-sm" style="color: var(--graphite);">Publications associées : <em>L'Ombre chez Proust</em> (démonstration), séminaire <em>Jung et la littérature</em></p>
+                            </div>
+                            <div class="flex justify-end"><span class="font-serif text-6xl font-semibold" style="color: var(--sand);">02</span></div>
+                        </article>
+                        <div class="hairline"></div>
+                        <article class="layout-asymmetric items-start">
+                            <div><span class="font-serif text-6xl font-semibold" style="color: var(--sand);">03</span></div>
+                            <div>
+                                <h2 class="font-serif text-2xl font-semibold mb-4">Littératures africaines francophones</h2>
+                                <p class="mb-4" style="color: var(--graphite);">Des romans d'Ahmadou Kourouma aux poétiques contemporaines de Alain Mabanckou, en passant par les voix féminines qui transforment le paysage littéraire, cet axe interroge les rapports entre oralité et écriture, entre langue héritée et langue investie. La littérature africaine n'est pas un continent séparé&nbsp;: elle est un laboratoire où se pensent les formes du récit mondial.</p>
+                                <p class="text-sm" style="color: var(--graphite);">Publications associées : <em>Voix croisées, regards décalés</em> (démonstration)</p>
+                            </div>
+                        </article>
+                        <div class="hairline"></div>
+                        <article class="layout-reversed items-start">
+                            <div>
+                                <h2 class="font-serif text-2xl font-semibold mb-4">Proust, Beckett : l'écriture du deuil et de la trace</h2>
+                                <p class="mb-4" style="color: var(--graphite);">De l'hypermnésie proustienne à l'amnésie beckettienne, deux régimes de la mémoire qui dessinent les limites de la prose moderne. La madeleine et l'urne, la chambre et la poubelle, la promenade et l'immobilité&nbsp;: autant de figures topologiques pour penser ce que la littérature fait au temps.</p>
+                                <p class="text-sm" style="color: var(--graphite);">Publications associées : <em>La Chambre des Signes</em> (titre de travail — démonstration), séminaire <em>Proust et le temps retrouvé de l'image</em></p>
+                            </div>
+                            <div class="flex justify-end"><span class="font-serif text-6xl font-semibold" style="color: var(--sand);">04</span></div>
+                        </article>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <div class="view" id="view-publications">
+            <section class="section pt-8">
+                <div class="container-editorial">
+                    <p class="kicker mb-4">Publications</p>
+                    <h1 class="font-serif text-4xl md:text-5xl font-semibold mb-8">Tous les textes</h1>
+                    <div class="flex flex-wrap gap-3 mb-8" id="pubFilters">
+                        <button onclick="filterPubs('all')" class="px-4 py-2 text-sm border transition-colors" style="border-color: var(--ink); background: var(--ink); color: var(--ivory);" data-filter="all">Tous</button>
+                        <button onclick="filterPubs('essay')" class="px-4 py-2 text-sm border transition-colors" style="border-color: var(--sand);" data-filter="essay">Essais</button>
+                        <button onclick="filterPubs('article')" class="px-4 py-2 text-sm border transition-colors" style="border-color: var(--sand);" data-filter="article">Articles</button>
+                        <button onclick="filterPubs('review')" class="px-4 py-2 text-sm border transition-colors" style="border-color: var(--sand);" data-filter="review">Recensions</button>
+                    </div>
+                    <div class="mb-8">
+                        <input type="text" id="pubSearchInput" placeholder="Filtrer par titre, catégorie, mot-clé..." class="input-editorial max-w-md" oninput="filterPubSearch(this.value)">
+                    </div>
+                    <div id="publicationsList"></div>
+                </div>
+            </section>
+        </div>
+
+        <div class="view" id="view-article">
+            <section class="section pt-8">
+                <div class="container-editorial">
+                    <div class="max-w-2xl mx-auto" id="articleContainer"></div>
+                </div>
+            </section>
+        </div>
+
+        <div class="view" id="view-livres">
+            <section class="section pt-8">
+                <div class="container-editorial">
+                    <p class="kicker mb-4">Livres</p>
+                    <h1 class="font-serif text-4xl md:text-5xl font-semibold mb-12">Ouvrages</h1>
+                    <div class="space-y-16" id="booksList"></div>
+                </div>
+            </section>
+        </div>
+
+        <div class="view" id="view-livre">
+            <section class="section pt-8">
+                <div class="container-editorial">
+                    <div id="bookDetailContainer"></div>
+                </div>
+            </section>
+        </div>
+
+        <div class="view" id="view-cours">
+            <section class="section pt-8">
+                <div class="container-editorial">
+                    <p class="kicker mb-4">Enseignement</p>
+                    <h1 class="font-serif text-4xl md:text-5xl font-semibold mb-12">Cours & séminaires</h1>
+                    <div class="space-y-8" id="coursesList"></div>
+                </div>
+            </section>
+        </div>
+
+        <div class="view" id="view-coursDetail">
+            <section class="section pt-8">
+                <div class="container-editorial">
+                    <div id="courseDetailContainer"></div>
+                </div>
+            </section>
+        </div>
+
+        <div class="view" id="view-collectifs">
+            <section class="section pt-8">
+                <div class="container-editorial">
+                    <p class="kicker mb-4">Ouvrages collectifs</p>
+                    <h1 class="font-serif text-4xl md:text-5xl font-semibold mb-12">Directions & collaborations</h1>
+                    <div class="max-w-2xl space-y-8" id="collectifsList"></div>
+                </div>
+            </section>
+        </div>
+
+        <div class="view" id="view-appel">
+            <section class="section pt-8">
+                <div class="container-editorial">
+                    <div class="max-w-2xl" id="callDetailContainer"></div>
+                </div>
+            </section>
+        </div>
+
+        <div class="view" id="view-proposition">
+            <section class="section pt-8">
+                <div class="container-editorial max-w-xl">
+                    <p class="kicker mb-4">Contribution</p>
+                    <h1 class="font-serif text-4xl md:text-5xl font-semibold mb-6">Proposer un texte</h1>
+                    <p class="mb-8" style="color: var(--graphite);">Vous souhaitez contribuer à un appel à contribution ou proposer un article original&nbsp;? Remplissez le formulaire ci-dessous. Réponse sous quatre semaines.</p>
+                    <form onsubmit="handleProposalSubmit(event)" class="space-y-6">
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Nom complet</label>
+                            <input type="text" required class="input-editorial" name="name">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Email institutionnel</label>
+                            <input type="email" required class="input-editorial" name="email">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Affiliation</label>
+                            <input type="text" class="input-editorial" name="affiliation" placeholder="Université, laboratoire, institution...">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Appel visé (optionnel)</label>
+                            <select class="input-editorial" name="callId">
+                                <option value="">Proposition libre</option>
+                                <option value="call-1">Afriques de l'imaginaire</option>
+                                <option value="call-2">Beckett et l'image</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Titre provisoire</label>
+                            <input type="text" required class="input-editorial" name="title">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Résumé (500 signes max.)</label>
+                            <textarea required rows="5" class="input-editorial" name="abstract" maxlength="500"></textarea>
+                        </div>
+                        <button type="submit" class="btn-primary w-full justify-center"><i data-lucide="send" class="w-4 h-4"></i> Envoyer la proposition</button>
+                    </form>
+                </div>
+            </section>
+        </div>
+
+        <div class="view" id="view-chercher">
+            <section class="section pt-8">
+                <div class="container-editorial max-w-2xl">
+                    <p class="kicker mb-4">Recherche</p>
+                    <h1 class="font-serif text-4xl md:text-5xl font-semibold mb-8">Résultats</h1>
+                    <div id="searchResultsPage"></div>
+                </div>
+            </section>
+        </div>
+
+        <div class="view" id="view-contact">
+            <section class="section pt-8">
+                <div class="container-editorial max-w-xl">
+                    <p class="kicker mb-4">Contact</p>
+                    <h1 class="font-serif text-4xl md:text-5xl font-semibold mb-6">Écrire</h1>
+                    <div class="mb-8 p-6" style="background: var(--papyrus);">
+                        <p class="font-serif text-lg mb-4">Pour toute question concernant la recherche, les cours, les publications ou une collaboration&nbsp;:</p>
+                        <p class="mb-2"><a href="mailto:contact@dachraoui.ch" class="text-lg hover:underline" style="color: var(--burgundy);">contact@dachraoui.ch</a></p>
+                        <p class="text-sm" style="color: var(--graphite);">Genève & Strasbourg</p>
+                    </div>
+                    <p class="text-sm mb-8" style="color: var(--graphite);">Délai de réponse habituel&nbsp;: 48 heures ouvrables. Pour les propositions académiques, privilégiez l'email institutionnel.</p>
+                </div>
+            </section>
+        </div>
+
+        <div class="view" id="view-newsletter">
+            <section class="section pt-8">
+                <div class="container-editorial max-w-xl text-center">
+                    <p class="kicker mb-4">Lettre de l'atelier</p>
+                    <h1 class="font-serif text-4xl md:text-5xl font-semibold mb-6">S'inscrire</h1>
+                    <p class="mb-8" style="color: var(--graphite);">Une lettre par mois. Pas de suivi, pas de revente, pas de growth-hacking. Seulement du texte.</p>
+                    <form onsubmit="handleNewsletterSubmit(event)" class="flex flex-col sm:flex-row gap-3">
+                        <input type="email" required placeholder="votre@email.ch" class="input-editorial flex-1 text-center sm:text-left">
+                        <button type="submit" class="btn-primary whitespace-nowrap justify-center">S'inscrire</button>
+                    </form>
+                </div>
+            </section>
+        </div>
+
+        <div class="view" id="view-connexion">
+            <section class="section pt-8">
+                <div class="container-editorial max-w-sm">
+                    <p class="kicker mb-4">Membres</p>
+                    <h1 class="font-serif text-4xl md:text-5xl font-semibold mb-6">Connexion</h1>
+                    <form onsubmit="handleLogin(event)" class="space-y-6">
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Email</label>
+                            <input type="email" required class="input-editorial" name="email" id="loginEmail">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Mot de passe</label>
+                            <input type="password" required class="input-editorial" name="password" id="loginPassword">
+                        </div>
+                        <button type="submit" class="btn-primary w-full justify-center">Se connecter</button>
+                    </form>
+                    <div class="mt-8 space-y-3 text-center text-sm">
+                        <p><a href="#inscription" onclick="navigateTo('inscription'); return false;" style="color: var(--burgundy);">Créer un compte</a></p>
+                        <p style="color: var(--graphite);"><a href="#mot-de-passe" onclick="navigateTo('mot-de-passe'); return false;" style="color: var(--graphite);">Mot de passe oublié&nbsp;?</a></p>
+                    </div>
+                    <div class="mt-12 p-4 text-xs" style="background: var(--papyrus); color: var(--graphite);">
+                        <p class="font-medium mb-2">Comptes de démonstration&nbsp;:</p>
+                        <p>Propriétaire&nbsp;: sophia@dachraoui.ch / atelier</p>
+                        <p>Membre&nbsp;: membre@dachraoui.demo / lecture</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <div class="view" id="view-inscription">
+            <section class="section pt-8">
+                <div class="container-editorial max-w-sm">
+                    <p class="kicker mb-4">Membres</p>
+                    <h1 class="font-serif text-4xl md:text-5xl font-semibold mb-6">Inscription</h1>
+                    <form onsubmit="handleRegister(event)" class="space-y-6">
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Prénom</label>
+                            <input type="text" required class="input-editorial" name="firstName">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Nom</label>
+                            <input type="text" required class="input-editorial" name="lastName">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Email</label>
+                            <input type="email" required class="input-editorial" name="email">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Mot de passe</label>
+                            <input type="password" required class="input-editorial" name="password" minlength="6">
+                        </div>
+                        <div>
+                            <label class="flex items-start gap-3 text-sm cursor-pointer">
+                                <input type="checkbox" required class="mt-1">
+                                <span style="color: var(--graphite);">J'accepte les conditions d'utilisation et la politique de confidentialité</span>
+                            </label>
+                        </div>
+                        <button type="submit" class="btn-primary w-full justify-center">Créer mon compte</button>
+                    </form>
+                    <p class="mt-6 text-center text-sm">Déjà membre&nbsp;? <a href="#connexion" onclick="navigateTo('connexion'); return false;" style="color: var(--burgundy);">Se connecter</a></p>
+                </div>
+            </section>
+        </div>
+
+        <div class="view" id="view-mot-de-passe">
+            <section class="section pt-8">
+                <div class="container-editorial max-w-sm text-center">
+                    <p class="kicker mb-4">Membres</p>
+                    <h1 class="font-serif text-4xl md:text-5xl font-semibold mb-6">Mot de passe oublié</h1>
+                    <p class="mb-8" style="color: var(--graphite);">Saisissez votre email. Vous recevrez un lien de réinitialisation (démonstration&nbsp;: aucun email envoyé).</p>
+                    <form onsubmit="handlePasswordReset(event)" class="space-y-6">
+                        <div>
+                            <input type="email" required class="input-editorial text-center" placeholder="votre@email.ch" name="email">
+                        </div>
+                        <button type="submit" class="btn-primary w-full justify-center">Envoyer le lien</button>
+                    </form>
+                </div>
+            </section>
+        </div>
+
+        <div class="view" id="view-membre">
+            <section class="section pt-8">
+                <div class="container-editorial">
+                    <p class="kicker mb-4">Espace personnel</p>
+                    <h1 class="font-serif text-4xl md:text-5xl font-semibold mb-8">Mon compte</h1>
+                    <div class="grid md:grid-cols-3 gap-8">
+                        <div class="md:col-span-2 space-y-8">
+                            <div class="p-6 border" style="border-color: var(--sand);">
+                                <h2 class="font-serif text-xl font-semibold mb-4">Mes accès</h2>
+                                <div id="memberAccessList"></div>
+                            </div>
+                            <div class="p-6 border" style="border-color: var(--sand);">
+                                <h2 class="font-serif text-xl font-semibold mb-4">Mes commandes</h2>
+                                <div id="memberOrdersList"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="p-6 border sticky top-24" style="border-color: var(--sand); background: var(--papyrus);">
+                                <h2 class="font-serif text-xl font-semibold mb-4">Profil</h2>
+                                <div id="memberProfile"></div>
+                                <button onclick="logout()" class="btn-ghost w-full justify-center mt-6"><i data-lucide="log-out" class="w-4 h-4"></i> Se déconnecter</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <div class="view" id="view-checkout">
+            <section class="section pt-8">
+                <div class="container-editorial max-w-lg">
+                    <p class="kicker mb-4">Paiement</p>
+                    <h1 class="font-serif text-4xl md:text-5xl font-semibold mb-6">Finaliser</h1>
+                    <div id="checkoutSummary" class="mb-8 p-6" style="background: var(--papyrus);"></div>
+                    <form onsubmit="handleCheckout(event)" class="space-y-6">
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Numéro de carte (démo)</label>
+                            <input type="text" required class="input-editorial" placeholder="4242 4242 4242 4242" value="4242 4242 4242 4242">
+                        </div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium mb-2">Expiration</label>
+                                <input type="text" required class="input-editorial" placeholder="MM/AA" value="12/25">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium mb-2">CVC</label>
+                                <input type="text" required class="input-editorial" placeholder="123" value="123">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Nom sur la carte</label>
+                            <input type="text" required class="input-editorial" placeholder="SOPHIA DACHRAOUI">
+                        </div>
+                        <button type="submit" class="btn-primary w-full justify-center"><i data-lucide="lock" class="w-4 h-4"></i> Payer (démonstration)</button>
+                    </form>
+                    <p class="mt-6 text-xs text-center" style="color: var(--graphite);">Paiement simulé. Aucune transaction réelle n'est effectuée.</p>
+                </div>
+            </section>
+        </div>
+
+        <div class="view" id="view-confirmation">
+            <section class="section pt-8">
+                <div class="container-editorial max-w-lg text-center">
+                    <div class="w-16 h-16 mx-auto mb-6 flex items-center justify-center rounded-full" style="background: #ECFDF5;">
+                        <i data-lucide="check" class="w-8 h-8" style="color: #065F46;"></i>
+                    </div>
+                    <h1 class="font-serif text-4xl font-semibold mb-4">Commande confirmée</h1>
+                    <p class="mb-8" style="color: var(--graphite);">Votre accès est maintenant actif. Retrouvez-le dans votre espace membre.</p>
+                    <div class="flex flex-wrap justify-center gap-4">
+                        <a href="#membre" onclick="navigateTo('membre'); return false;" class="btn-primary">Mon espace membre</a>
+                        <a href="#publications" onclick="navigateTo('publications'); return false;" class="btn-ghost">Explorer les contenus</a>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <div class="view" id="view-legal">
+            <section class="section pt-8">
+                <div class="container-editorial layout-full">
+                    <p class="kicker mb-4">Informations légales</p>
+                    <h1 class="font-serif text-4xl md:text-5xl font-semibold mb-8">Mentions légales</h1>
+                    <div class="space-y-8 text-sm" style="color: var(--graphite);">
+                        <div>
+                            <h2 class="font-serif text-xl font-semibold mb-3" style="color: var(--ink);">Édition</h2>
+                            <p>Dr. Sophia Dachraoui</p>
+                            <p>contact@dachraoui.ch</p>
+                            <p>Genève & Strasbourg</p>
+                        </div>
+                        <div>
+                            <h2 class="font-serif text-xl font-semibold mb-3" style="color: var(--ink);">Hébergement (démonstration)</h2>
+                            <p>Ce site est une démonstration statique hébergée sur GitHub Pages.</p>
+                            <p>La version définitive nécessitera un hébergement sécurisé avec serveur.</p>
+                        </div>
+                        <div>
+                            <h2 class="font-serif text-xl font-semibold mb-3" style="color: var(--ink);">Propriété intellectuelle</h2>
+                            <p>Tous les textes publiés sont la propriété de Sophia Dachraoui sauf mention contraire.</p>
+                            <p>Les citations courtes autorisées par le droit suisse et français doivent mentionner la source.</p>
+                        </div>
+                        <div>
+                            <h2 class="font-serif text-xl font-semibold mb-3" style="color: var(--ink);">Données personnelles</h2>
+                            <p>Aucune donnée n'est transmise à des tiers. Les inscriptions sont conservées localement à des fins de démonstration.</p>
+                        </div>
+                        <div>
+                            <h2 class="font-serif text-xl font-semibold mb-3" style="color: var(--ink);">Limitation de responsabilité</h2>
+                            <p>Ce site est une démonstration éditoriale. Les contenus de présentation sont fictifs sauf indication contraire. Les prix sont indicatifs.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="border-t" style="border-color: var(--sand); background: var(--papyrus);">
+        <div class="container-editorial py-16">
+            <div class="grid md:grid-cols-4 gap-12 mb-12">
+                <div class="md:col-span-2">
+                    <p class="font-serif text-2xl font-semibold mb-4">Sophia Dachraoui</p>
+                    <p class="text-sm mb-4" style="color: var(--graphite); max-width: 320px;">Écriture · Littérature · Recherche · Transmission</p>
+                    <p class="text-sm" style="color: var(--graphite);"><a href="mailto:contact@dachraoui.ch" class="hover:underline">contact@dachraoui.ch</a></p>
+                    <p class="text-sm" style="color: var(--graphite);">Genève & Strasbourg</p>
+                </div>
+                <div>
+                    <p class="text-sm font-medium mb-4">Navigation</p>
+                    <nav class="space-y-2 text-sm">
+                        <a href="#accueil" onclick="navigateTo('accueil'); return false;" class="block hover:underline" style="color: var(--graphite);">Accueil</a>
+                        <a href="#publications" onclick="navigateTo('publications'); return false;" class="block hover:underline" style="color: var(--graphite);">Publications</a>
+                        <a href="#livres" onclick="navigateTo('livres'); return false;" class="block hover:underline" style="color: var(--graphite);">Livres</a>
+                        <a href="#cours" onclick="navigateTo('cours'); return false;" class="block hover:underline" style="color: var(--graphite);">Cours</a>
+                        <a href="#apropos" onclick="navigateTo('apropos'); return false;" class="block hover:underline" style="color: var(--graphite);">À propos</a>
+                    </nav>
+                </div>
+                <div>
+                    <p class="text-sm font-medium mb-4">Espace membre</p>
+                    <nav class="space-y-2 text-sm">
+                        <a href="#connexion" onclick="navigateTo('connexion'); return false;" class="block hover:underline" style="color: var(--graphite);">Connexion</a>
+                        <a href="#inscription" onclick="navigateTo('inscription'); return false;" class="block hover:underline" style="color: var(--graphite);">Inscription</a>
+                        <a href="#membre" onclick="navigateTo('membre'); return false;" class="block hover:underline" style="color: var(--graphite);">Mon compte</a>
+                        <a href="admin.html" class="block hover:underline" style="color: var(--burgundy);">Atelier propriétaire</a>
+                    </nav>
+                </div>
+            </div>
+            <div class="hairline mb-8"></div>
+            <div class="flex flex-wrap justify-between items-center gap-4 text-xs" style="color: var(--graphite);">
+                <p>Démonstration éditoriale — contenus de présentation.</p>
+                <div class="flex gap-6">
+                    <a href="#legal" onclick="navigateTo('legal'); return false;" class="hover:underline">Mentions légales</a>
+                    <a href="#contact" onclick="navigateTo('contact'); return false;" class="hover:underline">Contact</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <div class="toast" id="toast"></div>
+
+    <div class="modal-overlay" id="modal" onclick="closeModalOnBackdrop(event)">
+        <div class="modal-panel" onclick="event.stopPropagation()">
+            <button onclick="closeModal()" class="absolute top-4 right-4 p-2">
+                <i data-lucide="x" class="w-4 h-4"></i>
+            </button>
+            <div id="modalContent"></div>
+        </div>
+    </div>
+
+    <script>
+        const STORAGE_KEY = 'sd_atelier_v2';
+
+        function getStore() {
+            const raw = localStorage.getItem(STORAGE_KEY);
+            if (raw) return JSON.parse(raw);
+            return initializeStore();
+        }
+
+        function setStore(store) {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(store));
+        }
+
+        function initializeStore() {
+            const store = {
+                currentUser: null,
+                users: [
+                    { email: 'sophia@dachraoui.ch', password: 'atelier', firstName: 'Sophia', lastName: 'Dachraoui', role: 'owner', createdAt: '2023-01-15T10:00:00Z' },
+                    { email: 'membre@dachraoui.demo', password: 'lecture', firstName: 'Jean', lastName: 'Lecteur', role: 'member', createdAt: '2024-03-20T14:30:00Z' }
+                ],
+                essays: [
+                    {
+                        id: 'essay-1',
+                        title: 'L\'Ombre chez Proust : une lecture jungienne de la mémoire involontaire',
+                        lede: 'La madeleine n\'est pas seulement un gâteau. Elle est le lieu où l\'inconscient proustien rencontre l\'archétype jungien de l\'Ombre, cette part refoulée qui resurgit dans l\'éclair de la sensation.',
+                        body: `La madeleine n'est pas seulement un gâteau. Elle est le lieu où l'inconscient proustien rencontre l'archétype jungien de l'Ombre, cette part refoulée qui resurgit dans l'éclair de la sensation.
+
+Chez Jung, l'Ombre désigne l'ensemble des traits de personnalité refoulés, jugés incompatibles avec l'image de soi que le Moi construit. Elle n'est pas le mal en soi, mais ce que nous refusons de reconnaître en nous. Or, dans la Recherche du temps perdu, la mémoire involontaire opère précisément selon ce mécanisme : ce que la mémoire volontaire, instrument du Moi, a oublié ou refoulé, la sensation brute — le goût, l'odeur, le toucher — le restitue dans sa plénitude trouble.
+
+La chambre de Combray, longtemps décrite comme un paradis perdu, révèle sous l'analyse jungienne une structure plus complexe. Le narrateur y projette une image idéalisée de l'enfance, mais les détails insistants — la peur du soir, la séparation d'avec la mère, la figure ambivalente de Swann — trahissent la présence d'une Ombre que le texte tente de sublimer. La madeleine, en réactivant ces strates, ne restitue pas un passé intact : elle le fait resurgir avec son lot d'angoisses et de désirs inavoués.
+
+C'est là que la lecture jungienne diverge radicalement des interprétations purement psychanalytiques freudiennes. Où Freud voit le refoulement d'un désir œdipien, Jung perçoit l'émergence d'un archétype : la Grande Mère, la Matrice, le lieu originel. La madeleine devient alors un symbole, non plus seulement d'un objet perdu, mais d'une dimension de l'être que le narrateur doit intégrer pour accéder à l'écriture.
+
+Car l'écriture proustienne, dans son achèvement même, est cette intégration. Le narrateur ne se contente pas de se souvenir : il transforme la mémoire en mythe personnel, l'expérience en archétype. La Recherche est le récit d'une individuation — ce processus jungien par lequel le sujet devient ce qu'il est en intégrant ses parties refoulées.
+
+L'Ombre, chez Proust, n'est donc pas ce qu'il faut surmonter, mais ce qu'il faut traverser. La chambre nocturne de Combray, avec ses terreurs enfantines, est aussi le lieu où se prépare la vocation littéraire. Sans cette confrontation avec le côté obscur de la mémoire, il n'y aurait pas de livre possible. La madeleine, en nous ramenant là, nous rappelle que toute création naît de l'acceptation de ce que nous préférerions oublier.
+
+Cette lecture ouvre des perspectives sur d'autres moments de la Recherche où l'archétype de l'Ombre se manifeste : la figure de Charlus, à la fois aristocrate et inverti, respecté et moqué ; la ville de Balbec, promise comme paradis et vécue comme enfer social ; la mort de la grand-mère, qui révèle au narrateur l'ampleur de son propre narcissisme. Chaque fois, l'intégration de l'Ombre — ou son échec — détermine le mouvement du récit.
+
+On comprend alors pourquoi Proust a été si peu lu à travers Jung alors que leur rencontre paraît si évidente. La critique française du XXe siècle, dominée par le freudisme et le structuralisme, a préféré les modèles explicatifs qui préservent l'autonomie du texte. Jung, avec son essentialisme apparent, dérangeait. Pourtant, sa lecture des archétypes comme structures transculturelles de l'imaginaire correspond précisément à l'ambition proustienne : faire d'une expérience individuelle un mythe universel, d'une vie une forme.
+
+La Chambre des Signes, titre de travail de mon prochain ouvrage, prolonge cette réflexion vers d'autres espaces intérieurs de la prose moderne. De la chambre proustienne à l'urne beckettienne, des caves de la mémoire aux espaces clos de l'aphasie, il s'agit de dresser une topologie de l'âme moderne — non pas comme métaphore, mais comme structure narrative réelle.`,
+                        category: 'Symbolisme',
+                        access: 'free',
+                        price: 0,
+                        status: 'published',
+                        createdAt: '2024-01-15T10:00:00Z',
+                        author: 'Sophia Dachraoui'
+                    },
+                    {
+                        id: 'essay-2',
+                        title: 'Voix croisées, regards décalés : pour une poétique de l\'orature africaine',
+                        lede: 'L\'orature, ce néologisme forgé par Pius Zirimu pour nommer l\'oralité en tant qu\'art, désigne un terrain où la littérature africaine contemporaine puise ses formes les plus vivantes.',
+                        body: `L'orature, ce néologisme forgé par Pius Zirimu pour nommer l'oralité en tant qu'art, désigne un terrain où la littérature africaine contemporaine puise ses formes les plus vivantes. Ce n'est pas un simple héritage du passé, mais une ressource active qui transforme l'écriture romanesque en performance textuelle.
+
+Chez Ahmadou Kourouma, la langue française se fait griotique. Les proverbes, les formules rituelles, les interruptions du narrateur-commentateur structurent un discours où le lecteur occidental est constamment déstabilisé. Il ne s'agit plus de lire un roman africain comme on lirait un roman français, mais d'apprendre une nouvelle grammaire de l'écoute.
+
+Cette déstabilisation est politique. Elle refuse l'assimilation esthétique à des canons européens pour proposer une forme de littérature-monde qui ne soit pas une simple extension du marché éditorial parisien ou londonien. L'orature, en maintenant vivante la voix dans le texte, résiste à la mortification de l'écriture.
+
+Alain Mabanckou pousse cette logique plus loin. Ses romans sont des monologues ininterrompus où la voix devient personnage, où le style oral n'est plus ornement mais substance narrative. Le lecteur est pris dans un flux verbal qui mime l'improvisation du griot, avec ses digressions, ses refrains, ses apostrophes au public.
+
+Mais l'orature n'est pas qu'une affaire de style. Elle implique une relation au temps, à la mémoire, à la communauté qui diffère radicalement du modèle européen. Le conte, forme fondatrice, ne reconnaît pas l'auteur individuel au sens moderne. Il appartient à un collectif, se transforme à chaque récitation, vit de la variation plus que de la fixation.
+
+Les romancières africaines contemporaines — Léonora Miano, Scholastique Mukasonga, Véronique Tadjo — réinventent cette tradition pour penser des questions que l'orature classique n'abordait pas directement : la violence faite aux femmes, la mémoire du génocide, la diaspora. Leur écriture, pourtant, garde cette qualité de voix qui s'adresse, qui interpelle, qui refuse la neutralité du récit à la troisième personne.
+
+La notion de « regard décalé » que je propose ici désigne cette position épistémologique particulière : ni l'extériorité coloniale du regard européen, ni l'intériorité fermée d'une essence africaine, mais un entre-deux critique où la distance devient méthode. Lire l'orature africaine, c'est apprendre à voir autrement, c'est-à-dire à entendre.
+
+Cette perspective a des implications pédagogiques directes. L'enseignement du FLE par la littérature africaine ne se contente pas de diversifier le corpus : il transforme la relation au langage. L'élève apprend le français comme langue de création mondiale, non comme norme parisienne. Il devient acteur d'une langue en mouvement, témoin de sa plasticité.
+
+Mes séminaires sur les littératures africaines à l'Université de Strasbourg et dans le cadre privé visent précisément cette activation. Il ne s'agit pas de « présenter » des auteurs, mais de créer les conditions d'une rencontre vivante avec des textes qui questionnent nos catégories les plus assises : roman, autobiographie, témoignage, poésie.
+
+L'orature, finalement, nous apprend quelque chose de plus général sur la littérature : qu'elle est d'abord voix, corps, performance. L'écriture qui l'oublie devient document, archive, preuve. Celle qui la conserve reste littérature, au sens fort : transformation du réel par le langage.
+
+C'est dans cette direction que je travaille actuellement, en préparant un ouvrage collectif avec des chercheurs africains et européens sur les nouvelles formes de l'orature dans la prose africaine des années 2020. Les mutations digitales, les podcasts littéraires, les performances scéniques réinventent le rapport entre oral et écrit d'une façon qui rend urgente une théorie renouvelée.`,
+                        category: 'Littérature africaine',
+                        access: 'free',
+                        price: 0,
+                        status: 'published',
+                        createdAt: '2024-02-20T14:00:00Z',
+                        author: 'Sophia Dachraoui'
+                    },
+                    {
+                        id: 'essay-3',
+                        title: 'Beckett et le seuil : l\'aphasie comme poétique',
+                        lede: 'Dans les textes tardifs de Beckett, le langage ne cesse de buter contre ses propres limites. Ce n\'est pas un échec, mais une méthode.',
+                        body: `Dans les textes tardifs de Beckett, le langage ne cesse de buter contre ses propres limites. Ce n'est pas un échec, mais une méthode. L'aphasie — comprise non pas comme pathologie clinique mais comme figure poétique — devient le mode d'accès à une vérité que la parole fluide dissimule.
+
+Le seuil, dans l'œuvre beckettienne, est partout : seuil de la conscience, de la chambre, de la phrase. Le narrateur de Company n'entre jamais vraiment dans la chambre qu'il décrit ; celui de Worstward Ho ne parvient jamais à dire ce qu'il faut dire. Cette structure du presque est une topologie du manque.
+
+Jung, encore une fois, offre des outils pour penser cette configuration. L'archétype du Vieux Sage, dans sa version négative, devient le vieillard impuissant de Beckett : celui qui sait mais ne peut plus dire, qui a vu mais ne peut plus montrer. La sagesse, ici, passe par l'échec avoué de la transmission.
+
+Mais il y a plus. L'aphasie beckettienne mime le processus jungien de nigredo, cette première étape de l'individuation où le sujet sombre dans la confusion, la dépression, le désordre. Pour Jung, cette descente est nécessaire : sans elle, pas de transformation. Beckett la fait durer, la fait texte, la fait notre expérience de lecture.
+
+Le seuil, alors, n'est pas une limite à franchir mais un espace à habiter. La chambre de Malone, de Molloy, de l'Innommable — ces espaces réduits, ces cellules, ces lits — sont des seuils permanents. Le personnage n'en sort pas, mais il n'y est pas non plus tout à fait. Il est dans l'intervalle, dans l'entre-deux que la prose beckettienne a fait son territoire.
+
+Cette spatialité a des implications directes pour ma recherche sur La Chambre des Signes. Si Proust fait de la chambre un lieu de plénitude retrouvée (même troublée), Beckett en fait le lieu d'une absence constitutive. Entre ces deux pôles se dessine toute une géographie de l'intériorité moderne.
+
+L'enseignement de Beckett pose des défis spécifiques. Les étudiants, confrontés à des textes qui semblent dire le même rien de façon de plus en plus réduite, éprouvent d'abord de la résistance. Il faut leur apprendre à lire cette réduction comme gain, non comme perte. Ce que Beckett enlève au langage, il le rend au silence — et le silence, lui aussi, est signifiant.
+
+Mes séminaires sur Beckett commencent souvent par une lecture à voix haute, très lente, de passages de Comment c'est. Le rythme saccadé, les répétitions, les interruptions physiques du souffle font sentir au corps ce que le sens intellectuel peine à saisir. C'est cette dimension incarnée de la lecture que je cherche à transmettre.
+
+Le seuil beckettien nous apprend finalement quelque chose sur la condition de lecteur : nous sommes toujours sur le seuil du texte, jamais dedans, jamais dehors. La compréhension n'est pas une conquête mais une posture, un maintien dans l'interrogation. C'est peut-être cela, la littérature : non pas la réponse, mais la tenue de la question.`,
+                        category: 'Symbolisme',
+                        access: 'premium',
+                        price: 12,
+                        status: 'published',
+                        createdAt: '2024-03-10T09:00:00Z',
+                        author: 'Sophia Dachraoui'
+                    },
+                    {
+                        id: 'essay-4',
+                        title: 'Les Masques de la mémoire : rituel et récit dans les littératures postcoloniales',
+                        lede: 'Le masque, en Afrique, n\'est pas seulement un objet ethnographique. Il est une théorie de la personne, une pratique de la mémoire, une poétique du récit.',
+                        body: `Le masque, en Afrique, n'est pas seulement un objet ethnographique. Il est une théorie de la personne, une pratique de la mémoire, une poétique du récit. Lire les littératures postcoloniales à travers le prisme du masque, c'est découvrir des structures narratives que les catégories européennes de personnage, de point de vue, de chronologie ne parviennent pas à saisir.
+
+Chez Sony Labou Tansi, le masque devient corps grotesque, corps politique, corps en révolte. La vie et demie de 1979 met en scène un dictateur qui est lui-même un masque vivant, une accumulation de rôles et de postures qui finissent par le consumer. Le masque, ici, n'est plus protection mais prison.
+
+Werewere Liking, dans son œuvre théâtrale et romanesque, réinvente le masque comme opérateur de transformation de genre. Les personnages changent de peau, de voix, de statut social dans des rituels qui miment l'initiation traditionnelle pour en déplacer les enjeux vers la condition féminine et la critique du pouvoir postcolonial.
+
+Cette mobilité du masque pose question à l'historien et au critique. Comment penser la continuité d'une pratique qui se transforme précisément en se transmettant ? Le masque colonial, instrument de domination et d'exhibition ethnographique, a été intégré, détourné, parodié par les artistes des générations suivantes. Il n'y a pas de pure tradition ni de pure rupture, mais des réappropriations stratégiques.
+
+La mémoire, dans ce jeu, fonctionne comme le masque : elle sélectionne, elle déforme, elle met en scène. Les romans africains de la mémoire — ceux de Tierno Monénembo, d'Abdulrazak Gurnah, d'Yvonne Adhiambo Owuor — ne racontent pas le passé tel qu'il fut, mais tel qu'il se fait récit. Le masque devient métaphore de cette mémoire travaillée, sculptée, performée.
+
+Jung, encore lui, permet de penser cette dynamique sans la réduire à la psychologie individuelle. Le masque africain, dans sa dimension archétypale, parle d'une structure de l'imaginaire qui dépasse les cultures particulières tout en s'incarnant dans des formes singulières. Le trickster, l'ancêtre, le double — ces figures que le masque incarne — sont présents dans toutes les mythologies, mais revêtent des visages différents.
+
+Ma recherche actuelle sur ce terrain vise à articuler trois niveaux : l'anthropologie du masque (ses fonctions rituelles et sociales), la psychanalyse des images (leur travail sur le sujet), et la poétique du récit (leur transformation en structures narratives). Cette articulation, qui traverse les disciplines, est précisément ce que l'institution universitaire peine à reconnaître comme légitime.
+
+Les séminaires que je dirige sur les littératures africaines tentent de créer un espace où cette interdisciplinarité puisse se pratiquer sans se diluer. Nous lisons des romans avec des outils d'analyse du rituel, des textes théoriques avec des méthodes de close reading, des objets matériels — masques réels, photographies d'archives — avec des grilles psychanalytiques.
+
+Le masque, finalement, nous enseigne quelque chose sur la lecture elle-même. Lire, c'est endosser un masque, adopter une autre voix, habiter un autre regard. Mais c'est aussi, comme le masque rituel, revenir transformé de cette habitation. La littérature postcoloniale, en rendant visible les mécanismes de cette transformation, nous invite à une lecture critique de nos propres masques — de nos postures de lecteurs « informés », de nos certitudes culturalistes, de nos illusions de compréhension.
+
+C'est dans cette direction que je prépare actuellement un article sur les « masques de la mémoire » dans l'œuvre de Scholastique Mukasonga, où le tissage, la céramique, le chant funèbre deviennent autant de masques mémoriels qui résistent à l'oubli du génocide rwandais tout en reconnaissant l'impossibilité de sa représentation directe.`,
+                        category: 'Anthropologie',
+                        access: 'premium',
+                        price: 15,
+                        status: 'published',
+                        createdAt: '2024-04-05T11:00:00Z',
+                        author: 'Sophia Dachraoui'
+                    },
+                    {
+                        id: 'essay-5',
+                        title: 'L\'Anima beckettienne : féminité et création dans les romans de jeunesse',
+                        lede: 'Avant l\'austérité des textes tardifs, Beckett a écrit des romans peuplés de femmes. Cette présence féminine, loin d\'être un simple héritage naturaliste, obéit à une logique jungienne de l\'Anima.',
+                        body: `Avant l'austérité des textes tardifs, Beckett a écrit des romans peuplés de femmes. Cette présence féminine, loin d'être un simple héritage naturaliste, obéit à une logique jungienne de l'Anima — cet archétype de la féminité intérieure qui structure la psyché masculine et conditionne sa relation à la création.
+
+Dans Dream of Fair to Middling Women (1932), le héros Belacqua est entouré de figures féminines qui incarnent des aspects contradictoires de l'Anima : la muse, la mère, la séductrice, la sœur. Cette multiplication n'est pas un signe de virilité triomphante, mais au contraire d'une dissociation intérieure que le roman tente de résoudre — et échoue à résoudre, ce qui est peut-être sa vérité.
+
+L'Anima, chez Jung, est d'abord une figure projetée. L'homme ne voit pas la femme telle qu'elle est, mais telle que son inconscient la façonne. Cette projection, source de fascination et de déception amoureuses, est aussi le moteur de la création artistique. L'artiste, selon Jung, crée pour intégrer son Anima, pour faire exister en dehors de lui ce qu'il ne peut habiter en lui-même.
+
+La progression de Beckett, des romans de jeunesse aux textes tardifs, peut se lire comme un lent retrait des projections animiques. Les femmes disparaissent, certes, mais leur disparition n'est pas une simple misogynie : c'est l'effondrement de la capacité projective elle-même. Quand l'Anima ne peut plus être projetée, elle doit être intégrée — ou le sujet sombre dans la psychose.
+
+Les textes de Malone meurt et de L'Innommable occupent une position intermédiaire fascinante. La voix narrative n'a plus de sexe assignable, mais elle garde des traces de la relation animique : le besoin d'être vu, d'être nommé, d'être reconnu par un autre. Ce besoin, Jung l'aurait identifié comme la quête de l'Anima, non plus extérieure mais intériorisée comme fonction psychique.
+
+Ma lecture des romans de jeunesse de Beckett vise à restaurer cette dimension, souvent négligée par une critique qui préfère l'austérité tardive à l'abondance première. Les femmes de Beckett ne sont pas des ratages : elles sont les masques nécessaires d'une quête de soi que le texte ultérieur dépouillera de ses oripeaux narratifs.
+
+Cette perspective permet de relire certains motifs insistants : les jambes, les cheveux, les yeux comme focus de la description masculine ; la structure du triangle amoureux qui revient obsessivement ; la figure de la femme malade, mourante, ou morte qui hante l'imaginaire beckettien. Tout cela, loin d'être du naturalisme démodé, relève d'une mythologie personnelle où l'Anima joue le rôle central.
+
+L'enseignement de ces textes pose la question de la biographie. Faut-il connaître la relation de Beckett avec Peggy Sinclair, avec Ethna MacCarthy, avec Suzanne Dechevaux-Dumesnil pour comprendre ses romans ? Ma réponse est nuancée : non, si l'on entend par là une lecture réductrice ; oui, si l'on considère que ces relations réelles ont été les supports nécessaires de projections animiques qui structurent l'imaginaire de l'œuvre.
+
+Le concept jungien d'« anima mundi », cette âme du monde dont chaque individu porte une parcelle, permet d'élargir la réflexion. L'Anima beckettienne ne concerne pas seulement sa psyché individuelle : elle parle de la modernité comme crise de la relation entre masculin et féminin, comme perte du sens de la réceptivité, de l'accueil, de la patience. Dans cette perspective, l'austérité tardive de Beckett n'est pas un progrès vers l'essentiel, mais un constat d'échec — l'échec de l'intégration animique.
+
+C'est là que ma recherche rejoint celle sur Proust. Car Proust, lui, semble avoir réussi cette intégration. La « race des mères », la « dame en rose », la duchesse de Guermantes, Albertine — toutes ces figures, si différentes, participent d'une même quête animique qui trouve sa résolution dans l'écriture même de la Recherche. Beckett et Proust, lus ensemble, dessinent les deux versants possibles de la création moderne : l'intégration ou l'échec, la plénitude ou le seuil.`,
+                        category: 'Psychanalyse',
+                        access: 'premium',
+                        price: 14,
+                        status: 'published',
+                        createdAt: '2024-05-12T16:00:00Z',
+                        author: 'Sophia Dachraoui'
+                    },
+                    {
+                        id: 'essay-6',
+                        title: 'Récits de fondation et postcolonie : le mythe comme critique',
+                        lede: 'Les récits de fondation ne sont pas seulement des origines à célébrer. Ils sont des enjeux de pouvoir, des terrains de mémoire, des outils de résistance.',
+                        body: `Les récits de fondation ne sont pas seulement des origines à célébrer. Ils sont des enjeux de pouvoir, des terrains de mémoire, des outils de résistance. Dans les sociétés postcoloniales, la question de la fondation — de l'État, de la nation, de la littérature — se pose avec une acuité particulière qui transforme le mythe en critique.
+
+Chez Ngũgĩ wa Thiong'o, la fondation du Kenya est à la fois un mythe Gĩkũyũ (le Mugumo, le figuier sacré) et un fait colonial (la construction de la voie ferrée, la répression de Mau Mau). Le roman, de Weep Not, Child à Wizard of the Crow, travaille à articuler ces deux registres sans les réduire l'un à l'autre. Le mythe n'est pas un refuge identitaire : il est une arme de critique politique.
+
+Cette double fonction du mythe — fondation et subversion — relève de ce que j'appelle une poétique de la rémanence. Les structures mythiques persistent dans les textes modernes, mais déplacées, déformées, ironisées. Elles ne disparaissent pas avec la modernisation : elles se métamorphosent, passant de la forme rituelle à la forme romanesque, de l'oralité au texte écrit, du collectif à l'individuel.
+
+Jung, dans ses dernières écrits sur l'archétype, avait pressenti cette mobilité. L'archétype n'est pas une forme fixe mais une tendance à la forme, une structure dynamique qui se réalise différemment selon les contextes historiques. Lire les récits de fondation africains à la lumière de cette dynamique, c'est comprendre comment le mythe peut être à la fois conservateur et révolutionnaire.
+
+La figure du héros fondateur, par exemple, traverse toute la littérature africaine des indépendances. De Laye Camara à Chinua Achebe, de Mongo Beti à Ahmadou Kourouma, le héros est tour à tour celui qui fonde, celui qui trahit, celui qui meurt pour que la nation survive. Ces variations ne sont pas des erreurs de calque sur le modèle européen : elles sont les formes que prend l'archétype du héros dans des contextes où la fondation est toujours déjà problématique.
+
+Ma recherche sur ce terrain s'appuie sur une enquête de terrain menée au Sénégal et au Kenya en 2022 et 2023. J'ai collecté des récits oraux de fondation villageoise, les ai comparés aux versions écrites des historiens coloniaux, puis aux réécritures romanesques contemporaines. Ce travail comparatiste, qui croise anthropologie, histoire et littérature, vise à dégager des structures narratives profondes qui traversent ces différents registres.
+
+L'enseignement de ces matériaux exige une pédagogie spécifique. Les étudiants européens tendent à lire les récits africains de fondation comme des curiosités ethnographiques ou des allégories politiques simplifiées. Il faut leur apprendre à en saisir la complexité interne, la richesse symbolique, la sophistication narrative. Le mythe africain n'est pas primitif : il est une forme de pensée complexe qui mérite les mêmes outils d'analyse que la tragédie grecque ou le roman européen.
+
+Les séminaires que je propose sur ce thème commencent systématiquement par une lecture comparée : un mythe de fondation grec (Cécrops, Cadmos) et un mythe africain (Mwindo, Sundiata). Cette mise en regard, loin de niveler les différences, les rend plus visibles. On voit alors que le problème de la fondation est universel, mais que ses solutions sont culturellement spécifiques.
+
+La notion de « postcolonie » que j'emploie, empruntée à Achille Mbembe mais déplacée vers la littérature, désigne cet espace-temps où la fondation coloniale n'est ni acceptée ni purement rejetée, mais travaillée, détournée, subvertie. Les récits de fondation postcoloniaux ne racontent pas l'origine vraie : ils racontent l'impossibilité de toute origine pure, et c'est en cela qu'ils sont critiques.
+
+C'est dans cette perspective que je prépare actuellement un ouvrage collectif avec des chercheurs africains et européens sur les « récits de fondation à l'ère de la globalisation ». Comment le mythe de fondation résiste-t-il à l'échelle planétaire ? Comment se transforme-t-il dans les diasporas, les migrations, les réseaux digitaux ? Ces questions, qui dépassent le cadre strictement littéraire, appellent une réflexion renouvelée sur le statut du mythe dans les sociétés contemporaines.`,
+                        category: 'Anthropologie',
+                        access: 'free',
+                        price: 0,
+                        status: 'published',
+                        createdAt: '2024-06-18T10:30:00Z',
+                        author: 'Sophia Dachraoui'
+                    }
+                ],
+                books: [
+                    {
+                        id: 'book-1',
+                        title: 'La Chambre des Signes',
+                        subtitle: 'Archétypes et espaces intérieurs dans la prose moderne',
+                        blurb: 'De la chambre de Marcel à l\'urne de Malone, une topologie de l\'âme moderne. Le lieu où le symbole se fait habitable.',
+                        description: `La chambre n'est pas seulement un décor dans la prose moderne : elle est le lieu où le symbole se fait habitable. De Proust à Beckett, des caves de la mémoire aux espaces clos de l'aphasie, cet essai interroge la topologie de l'âme moderne à travers le prisme de la psychologie des profondeurs.
+
+La chambre de Combray, avec ses deux chemins et sa peur du soir, structure l'espace mental du narrateur proustien comme une mandala jungien : centre et périphérie, lumière et ombre, accès et interdit. L'analyse des espaces intérieurs dans la Recherche révèle une cartographie du psychisme où chaque pièce correspond à un stade de l'individuation.
+
+Chez Beckett, la réduction de l'espace — de la chambre au lit, du lit à l'urne, de l'urne à la voix sans lieu — n'est pas une simple austérité formelle. Elle mime le processus de nigredo alchimique, cette descente dans les ténèbres qui prépare la transformation. Le seuil, dans l'œuvre beckettienne, devient le seul espace habitable : ni dedans ni dehors, mais dans l'intervalle.
+
+Cet essai prolonge ces lectures vers d'autres espaces de la prose moderne : la maison de Virginia Woolf, l'hôtel de Kafka, la cave de Dostoïevski. Chaque fois, l'architecture intérieure révèle une structure archétypale qui dépasse la biographie de l'auteur pour toucher à des constantes de l'imaginaire occidental.
+
+La Chambre des Signes propose ainsi une méthode de lecture qui croise psychanalyse jungienne, phénoménologie de l'espace et poétique du récit. Elle s'adresse aux chercheurs en littérature comparée, aux étudiants en lettres, et à tout lecteur qui sent que les lieux des romans ne sont pas de simples décors, mais des personnages à part entière.`,
+                        category: 'Essai',
+                        price: 32,
+                        discount: 0,
+                        status: 'preorder',
+                        stock: 0,
+                        pages: 320,
+                        publisher: 'À confirmer',
+                        isbn: 'À attribution',
+                        releaseDate: '2025-2026',
+                        createdAt: '2024-01-01T00:00:00Z'
+                    },
+                    {
+                        id: 'book-2',
+                        title: 'Cahier pédagogique : Lire le symbole',
+                        subtitle: 'Méthode et exercices pour l\'enseignement du FLE par la littérature',
+                        blurb: 'Un outil concret pour les enseignants de français langue étrangère qui veulent faire de la littérature une médiation vivante.',
+                        description: `Comment enseigner le français langue étrangère par la littérature sans sacrifier ni la langue ni le plaisir de lire ? Ce cahier pédagogique propose une méthode structurée en trois niveaux, douze séquences, et quarante-huit exercices réutilisables.
+
+La méthode repose sur l'hypothèse que le symbole littéraire — compris au sens jungien comme structure émotionnelle et culturelle — constitue un médiateur privilégié entre la langue cible et l'expérience vécue de l'apprenant. Plutôt que de partir de la grammaire pour aller vers le texte, on part du texte pour faire émerger les problèmes de langue dans leur contexte vivant.
+
+Chaque séquence comprend : un texte littéraire choisi pour sa richesse symbolique et sa accessibilité linguistique ; une fiche de lecture guidée qui fait travailler la compréhension globale, l'inférence, et l'interprétation ; des exercices de langue ciblés sur les difficultés révélées par le texte ; une activité créative qui demande aux apprenants de produire un texte personnel en résonance avec l'œuvre lue.
+
+Les auteurs retenus vont de Marcel Aymé à Véronique Tadjo, de Jacques Prévert à Léonora Miano, en passant par des textes de presse, des chansons, et des extraits de bande dessinée. Cette diversité vise à montrer que la littérature n'est pas un genre séparé mais un mode de langage qui traverse tous les discours.
+
+Le cahier s'adresse aux enseignants de FLE en institution, aux formateurs en entreprise, aux accompagnateurs de migrants, et aux étudiants en didactique des langues. Il peut être utilisé de façon autonome ou comme complément d'une méthode de référence.`,
+                        category: 'Pédagogie',
+                        price: 28,
+                        discount: 15,
+                        status: 'published',
+                        stock: 45,
+                        pages: 186,
+                        publisher: 'Éditions pédagogiques du Léman (démonstration)',
+                        isbn: '978-2-XXXX-XXXX-X (démonstration)',
+                        releaseDate: '2024',
+                        createdAt: '2024-01-01T00:00:00Z'
+                    }
+                ],
+                courses: [
+                    {
+                        id: 'course-1',
+                        title: 'Proust et le temps retrouvé de l\'image',
+                        type: 'Séminaire universitaire',
+                        description: `Séminaire de recherche sur la visualité proustienne. De la madeleine à la dernière page de la Recherche, une lecture des mécanismes de la mémoire involontaire comme poétique de l'image mentale.
+
+Le séminaire se déroule sur douze séances de deux heures, réparties sur un semestre. Chaque séance combine lecture commentée d'un passage de la Recherche, apport théorique sur un aspect de la visualité (phénoménologie de l'image, neurosciences de la mémoire, psychanalyse jungienne), et discussion collective.
+
+Les participants ont accès à une bibliographie commentée, à des reproductions d'œuvres d'art mentionnées par Proust, et à des enregistrements des séances pour ceux qui ne peuvent être présents.
+
+La dernière séance est consacrée à la présentation des travaux personnels des participants : article, création, ou lecture performée.`,
+                        price: 480,
+                        duration: '12 séances',
+                        format: 'Présentiel + distanciel',
+                        nextSession: 'Janvier 2025',
+                        seats: 15,
+                        status: 'published',
+                        createdAt: '2024-01-01T00:00:00Z'
+                    },
+                    {
+                        id: 'course-2',
+                        title: 'Jung et la littérature',
+                        type: 'Module privé',
+                        description: `Introduction aux archétypes jungiens à travers la lecture de textes modernes. Six séances en présentiel ou distanciel, pour un petit groupe de 6 à 8 participants.
+
+Le module commence par une présentation des concepts fondamentaux de la psychologie analytique : inconscient personnel et collectif, archétypes, individuation, ombre, anima/animus, Self. Chaque concept est ensuite illustré par des lectures de textes littéraires : Proust pour l'Anima, Beckett pour l'Ombre, Kafka pour le Vieux Sage, Woolf pour la Grande Mère.
+
+Les participants sont invités à tenir un « journal de lecture jungien » où ils notent leurs réactions émotionnelles aux textes, leurs rêves éventuels, et les associations personnelles qui se présentent. Ce journal, strictement confidentiel, sert de matériau pour les discussions des deux dernières séances.
+
+Le module s'adresse aux étudiants en lettres, aux thérapeutes en formation, aux écrivains, et à toute personne intéressée par le croisement de la littérature et de la psychologie.`,
+                        price: 360,
+                        duration: '6 séances',
+                        format: 'Présentiel ou distanciel',
+                        nextSession: 'Sur demande',
+                        seats: 8,
+                        status: 'published',
+                        createdAt: '2024-01-01T00:00:00Z'
+                    },
+                    {
+                        id: 'course-3',
+                        title: 'FLE & littérature : cahier et ressources',
+                        type: 'Ressources',
+                        description: `Cahier pédagogique et méthodologie pour l'enseignement du français langue étrangère par la littérature. Accès immédiat aux ressources numériques.
+
+Ce produit combine un cahier pédagogique imprimé (186 pages) et un accès à une plateforme en ligne où les enseignants trouvent : les textes intégraux en version numérique ; des fiches photocopiables ; des enregistrements audio des textes lus par des comédiens ; des corrigés détaillés des exercices ; un forum de discussion entre utilisateurs.
+
+La méthode, décrite plus en détail dans la fiche du cahier pédagogique, repose sur l'apprentissage du français par le symbole littéraire. Elle est adaptable à tous les niveaux du CECR, de A2 à C2, avec des suggestions de différenciation pour les classes hétérogènes.
+
+L'accès en ligne est valable un an à compter de l'achat, renouvelable.`,
+                        price: 120,
+                        duration: 'Accès 1 an',
+                        format: 'Numérique + imprimé',
+                        nextSession: 'Immédiat',
+                        seats: 999,
+                        status: 'published',
+                        createdAt: '2024-01-01T00:00:00Z'
+                    }
+                ],
+                calls: [
+                    {
+                        id: 'call-1',
+                        title: 'Afriques de l\'imaginaire',
+                        subtitle: 'Figures mythiques et prose contemporaine',
+                        description: `Appel à contributions pour un ouvrage collectif sur les réinventions des figures mythiques africaines dans la prose contemporaine (romans, nouvelles, récits autobiographiques).
+
+Les contributions peuvent aborder : les réécritures de mythes de fondation dans le roman postcolonial ; la transformation des tricksters dans la littérature urbaine ; le rôle des figures féminines (mère, sorcière, guérisseuse) dans les récits contemporains ; les rapports entre oralité et écriture dans la transmission mythique ; les lectures comparées entre traditions africaines et autres traditions mythologiques.
+
+Longueur des articles : 40 000 à 60 000 signes. Langues : français ou anglais. Date limite de proposition (500 mots) : 15 mars 2025. Date limite d'envoi des articles complets : 30 septembre 2025.`,
+                        deadline: '2025-03-15',
+                        status: 'open',
+                        createdAt: '2024-01-01T00:00:00Z'
+                    },
+                    {
+                        id: 'call-2',
+                        title: 'Beckett et l\'image',
+                        subtitle: 'Visualité, seuil, silence',
+                        description: `Appel à contributions pour un numéro de revue sur les rapports entre l'œuvre de Samuel Beckett et les arts visuels (peinture, photographie, cinéma, installation).
+
+Beckett a été peintre, a écrit sur la peinture, a collaboré avec des artistes visuels (Jasper Johns, Avigdor Arikha, Billie Whitelaw). Son œuvre théâtrale et romanesque est traversée par une réflexion constante sur le visible et son impossibilité. Ce numéro interrogera : la « chambre » beckettienne comme espace scénique et pictural ; le corps comme image en décomposition ; le regard et son échec ; les adaptations filmiques et leur rapport au texte ; les installations contemporaines inspirées de Beckett.
+
+Longueur des articles : 35 000 à 50 000 signes. Langue : français. Date limite de proposition (400 mots) : 30 avril 2025. Date limite d'envoi des articles complets : 15 novembre 2025.`,
+                        deadline: '2025-04-30',
+                        status: 'open',
+                        createdAt: '2024-01-01T00:00:00Z'
+                    }
+                ],
+                reviews: [
+                    { id: 'rev-1', itemId: 'book-2', itemType: 'book', author: 'Marie L.', rating: 5, text: 'Un outil précieux pour mes cours de FLE. La méthode est claire et les exercices vraiment réutilisables.', date: '2024-03-15T10:00:00Z' },
+                    { id: 'rev-2', itemId: 'course-1', itemType: 'course', author: 'Pierre D.', rating: 5, text: 'Séminaire exigeant et passionnant. Sophia Dachraoui sait faire partager sa passion pour Proust sans jamais simplifier.', date: '2024-02-20T14:00:00Z' },
+                    { id: 'rev-3', itemId: 'essay-1', itemType: 'essay', author: 'Claire B.', rating: 4, text: 'Lecture jungienne convaincante, même si on pourrait souhaiter plus de développements sur la notion d\'individuation.', date: '2024-01-25T09:00:00Z' }
+                ],
+                newsletter: [
+                    { email: 'lecteur1@email.com', date: '2024-03-01T10:00:00Z' },
+                    { email: 'etudiant@universite.fr', date: '2024-02-15T14:00:00Z' }
+                ],
+                proposals: [
+                    { id: 'prop-1', name: 'Jean Dupont', email: 'j.dupont@univ.fr', affiliation: 'Université de Lyon 2', callId: 'call-1', title: 'Le trickster dans le roman urbain africain', abstract: 'Étude comparative des figures de tricksters dans les romans de Alain Mabanckou et Patrice Nganang...', date: '2024-03-10T11:00:00Z', status: 'pending' }
+                ],
+                orders: [
+                    { id: 'ord-1', userEmail: 'membre@dachraoui.demo', items: [{ type: 'subscription', name: 'Lecteur 1 an', price: 48 }], total: 48, status: 'completed', date: '2024-03-20T14:30:00Z' }
+                ],
+                unlockedContent: ['essay-1', 'essay-2', 'essay-6'],
+                cart: null,
+                settings: {
+                    siteName: 'Sophia Dachraoui',
+                    tagline: 'Écriture · Littérature · Recherche · Transmission',
+                    contactEmail: 'contact@dachraoui.ch'
+                },
+                stats: {
+                    visits: 1247,
+                    uniqueVisitors: 892,
+                    sales: 144,
+                    accounts: 2,
+                    newsletterCount: 2,
+                    proposalsCount: 1,
+                    reviewsCount: 3,
+                    ordersCount: 1
+                }
+            };
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(store));
+            return store;
+        }
+
+        let store = getStore();
+
+        function saveStore() {
+            setStore(store);
+        }
+
+        function getCurrentUser() {
+            return store.currentUser;
+        }
+
+        function isOwner() {
+            const user = getCurrentUser();
+            return user && user.role === 'owner';
+        }
+
+        function isMember() {
+            const user = getCurrentUser();
+            return user && (user.role === 'member' || user.role === 'owner');
+        }
+
+        function hasAccess(contentId) {
+            const essay = store.essays.find(e => e.id === contentId);
+            if (!essay) return false;
+            if (essay.access === 'free') return true;
+            return isMember() || store.unlockedContent.includes(contentId);
+        }
+
+        const navItems = [
+            { id: 'accueil', label: 'Accueil', href: '#accueil' },
+            { id: 'publications', label: 'Publications', href: '#publications' },
+            { id: 'livres', label: 'Livres', href: '#livres' },
+            { id: 'cours', label: 'Cours', href: '#cours' },
+            { id: 'collectifs', label: 'Appels', href: '#collectifs' },
+            { id: 'recherche', label: 'Recherche', href: '#recherche' },
+            { id: 'apropos', label: 'À propos', href: '#apropos' }
+        ];
+
+        function initNav() {
+            const desktopNav = document.getElementById('desktopNav');
+            const drawerNav = document.getElementById('drawerNav');
+            desktopNav.innerHTML = navItems.map(item => `
+                <a href="${item.href}" onclick="navigateTo('${item.id}'); return false;" class="text-sm font-medium transition-colors hover:text-burgundy" style="color: var(--graphite);" data-nav="${item.id}">${item.label}</a>
+            `).join('');
+            drawerNav.innerHTML = navItems.map(item => `
+                <a href="${item.href}" onclick="navigateTo('${item.id}'); closeDrawer(); return false;" class="block py-3 text-lg font-serif border-b transition-colors" style="border-color: var(--sand); color: var(--ink);" data-nav="${item.id}">${item.label}</a>
+            `).join('');
+        }
+
+        function navigateTo(viewId) {
+            let baseView = viewId;
+            let params = {};
+            if (viewId.includes('?')) {
+                const [base, query] = viewId.split('?');
+                baseView = base;
+                query.split('&').forEach(pair => {
+                    const [k, v] = pair.split('=');
+                    params[decodeURIComponent(k)] = decodeURIComponent(v);
+                });
+            }
+            if (baseView === 'appels') baseView = 'collectifs';
+            if (baseView === 'article') {
+                renderArticle(params.id);
+            } else if (baseView === 'livre') {
+                renderBookDetail(params.id);
+            } else if (baseView === 'coursDetail') {
+                renderCourseDetail(params.id);
+            } else if (baseView === 'appel') {
+                renderCallDetail(params.id);
+            }
+            document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+            const targetView = document.getElementById(`view-${baseView}`);
+            if (targetView) {
+                targetView.classList.add('active');
+                window.scrollTo(0, 0);
+            }
+            window.location.hash = viewId;
+            document.querySelectorAll('[data-nav]').forEach(el => {
+                el.style.color = el.dataset.nav === baseView ? 'var(--burgundy)' : '';
+            });
+            setTimeout(() => lucide.createIcons(), 50);
+            incrementVisits();
+        }
+
+        function handleHash() {
+            const hash = window.location.hash.slice(1) || 'accueil';
+            navigateTo(hash);
+        }
+
+        function updateAuthUI() {
+            const user = getCurrentUser();
+            const memberBtn = document.getElementById('navMemberBtn');
+            const userArea = document.getElementById('navUserArea');
+            if (user) {
+                memberBtn.classList.add('hidden');
+                userArea.classList.remove('hidden');
+                userArea.innerHTML = `
+                    <span class="text-sm">${user.firstName}</span>
+                    ${user.role === 'owner' ? `<a href="admin.html" class="text-xs px-2 py-1" style="background: var(--burgundy); color: white;">Atelier</a>` : ''}
+                    <button onclick="logout()" class="text-sm hover:underline" style="color: var(--graphite);">Sortir</button>
+                `;
+            } else {
+                memberBtn.classList.remove('hidden');
+                userArea.classList.add('hidden');
+            }
+        }
+
+        function handleLogin(e) {
+            e.preventDefault();
+            const email = e.target.email.value;
+            const password = e.target.password.value;
+            const user = store.users.find(u => u.email === email && u.password === password);
+            if (user) {
+                store.currentUser = { ...user, password: undefined };
+                saveStore();
+                updateAuthUI();
+                showToast(`Bienvenue, ${user.firstName}`);
+                navigateTo('membre');
+            } else {
+                showToast('Email ou mot de passe incorrect');
+            }
+        }
+
+        function handleRegister(e) {
+            e.preventDefault();
+            const form = e.target;
+            const email = form.email.value;
+            if (store.users.find(u => u.email === email)) {
+                showToast('Cet email est déjà utilisé');
+                return;
+            }
+            const newUser = {
+                email,
+                password: form.password.value,
+                firstName: form.firstName.value,
+                lastName: form.lastName.value,
+                role: 'member',
+                createdAt: new Date().toISOString()
+            };
+            store.users.push(newUser);
+            store.currentUser = { ...newUser, password: undefined };
+            store.stats.accounts++;
+            saveStore();
+            updateAuthUI();
+            showToast('Compte créé avec succès');
+            navigateTo('membre');
+        }
+
+        function logout() {
+            store.currentUser = null;
+            saveStore();
+            updateAuthUI();
+            showToast('Déconnecté');
+            navigateTo('accueil');
+        }
+
+        function handlePasswordReset(e) {
+            e.preventDefault();
+            showToast('Lien de réinitialisation envoyé (démonstration)');
+            navigateTo('connexion');
+        }
+
+        function openSearch() {
+            document.getElementById('searchOverlay').classList.add('active');
+            document.getElementById('searchInput').focus();
+        }
+
+        function closeSearch() {
+            document.getElementById('searchOverlay').classList.remove('active');
+        }
+
+        function performSearch(query) {
+            if (!query || query.length < 2) return [];
+            const q = query.toLowerCase();
+            const results = [];
+            store.essays.forEach(e => {
+                if (e.title.toLowerCase().includes(q) || e.lede.toLowerCase().includes(q) || e.category.toLowerCase().includes(q)) {
+                    results.push({ type: 'essay', item: e });
+                }
+            });
+            store.books.forEach(b => {
+                if (b.title.toLowerCase().includes(q) || b.blurb.toLowerCase().includes(q)) {
+                    results.push({ type: 'book', item: b });
+                }
+            });
+            store.courses.forEach(c => {
+                if (c.title.toLowerCase().includes(q) || c.description.toLowerCase().includes(q)) {
+                    results.push({ type: 'course', item: c });
+                }
+            });
+            return results;
+        }
+
+        function renderSearchResults(query) {
+            const results = performSearch(query);
+            const container = document.getElementById('searchResults');
+            if (results.length === 0) {
+                container.innerHTML = '<p style="color: var(--graphite);">Aucun résultat pour "' + escapeHtml(query) + '"</p>';
+                return;
+            }
+            container.innerHTML = results.map(r => `
+                <a href="#${r.type === 'essay' ? 'article?id=' + r.item.id : r.type === 'book' ? 'livre?id=' + r.item.id : 'coursDetail?id=' + r.item.id}" onclick="closeSearch(); navigateTo('${r.type === 'essay' ? 'article?id=' + r.item.id : r.type === 'book' ? 'livre?id=' + r.item.id : 'coursDetail?id=' + r.item.id}'); return false;" class="block p-4 hover:bg-sand/30 transition-colors border-b" style="border-color: var(--sand);">
+                    <p class="text-xs uppercase tracking-wider mb-1" style="color: var(--gold-soft);">${r.type === 'essay' ? 'Article' : r.type === 'book' ? 'Livre' : 'Cours'}</p>
+                    <p class="font-serif text-lg font-medium">${escapeHtml(r.item.title)}</p>
+                    <p class="text-sm mt-1" style="color: var(--graphite);">${escapeHtml(r.item.lede || r.item.blurb || r.item.description.substring(0, 120) + '...')}</p>
+                </a>
+            `).join('');
+            setTimeout(() => lucide.createIcons(), 50);
+        }
+
+        function renderHomePublications() {
+            const container = document.getElementById('homePublications');
+            const pubs = store.essays.filter(e => e.status === 'published').slice(0, 4);
+            container.innerHTML = pubs.map((e, i) => `
+                <div class="pub-item">
+                    <div class="pub-year">${new Date(e.createdAt).getFullYear()}</div>
+                    <div>
+                        <div class="flex items-center gap-2 mb-1">
+                            ${e.access === 'premium' ? '<span class="premium-badge">Premium</span>' : '<span class="lock-badge">Libre accès</span>'}
+                            <span class="text-xs" style="color: var(--graphite);">${e.category}</span>
+                        </div>
+                        <h3 class="font-serif text-lg font-semibold mb-2">
+                            <a href="#article?id=${e.id}" onclick="navigateTo('article?id=${e.id}'); return false;" class="hover:underline" style="color: var(--ink);">${escapeHtml(e.title)}</a>
+                        </h3>
+                        <p class="text-sm" style="color: var(--graphite);">${escapeHtml(e.lede.substring(0, 180))}...</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderHomeArticles() {
+            const container = document.getElementById('homeArticles');
+            const articles = store.essays.filter(e => e.status === 'published');
+            container.innerHTML = articles.map(e => `
+                <article class="flex flex-col">
+                    <div class="flex items-center gap-2 mb-3">
+                        ${e.access === 'premium' ? '<span class="premium-badge">Premium</span>' : '<span class="lock-badge">Libre accès</span>'}
+                        <span class="text-xs" style="color: var(--graphite);">${e.category}</span>
+                    </div>
+                    <h3 class="font-serif text-xl font-semibold mb-3 leading-tight">
+                        <a href="#article?id=${e.id}" onclick="navigateTo('article?id=${e.id}'); return false;" class="hover:underline" style="color: var(--ink);">${escapeHtml(e.title)}</a>
+                    </h3>
+                    <p class="text-sm mb-4 flex-1" style="color: var(--graphite);">${escapeHtml(e.lede.substring(0, 150))}...</p>
+                    <a href="#article?id=${e.id}" onclick="navigateTo('article?id=${e.id}'); return false;" class="inline-flex items-center gap-2 text-sm font-medium" style="color: var(--burgundy);">
+                        ${e.access === 'premium' && !hasAccess(e.id) ? '<i data-lucide="lock" class="w-3.5 h-3.5"></i> Débloquer' : 'Lire'}
+                        <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </a>
+                </article>
+            `).join('');
+        }
+
+        function renderHomeCalls() {
+            const container = document.getElementById('homeCalls');
+            container.innerHTML = store.calls.filter(c => c.status === 'open').map(c => `
+                <div class="p-6 border" style="border-color: var(--sand); background: var(--ivory);">
+                    <div class="flex items-start justify-between mb-4">
+                        <div>
+                            <span class="lock-badge mb-2 inline-flex">Appel ouvert</span>
+                            <h3 class="font-serif text-xl font-semibold mt-2">${escapeHtml(c.title)}</h3>
+                            <p class="text-sm" style="color: var(--graphite);">${escapeHtml(c.subtitle)}</p>
+                        </div>
+                    </div>
+                    <p class="text-sm mb-4" style="color: var(--graphite);">${escapeHtml(c.description.substring(0, 200))}...</p>
+                    <div class="flex items-center justify-between">
+                        <span class="text-sm" style="color: var(--graphite);"><i data-lucide="calendar" class="w-4 h-4 inline mr-1"></i> Date limite : ${formatDate(c.deadline)}</span>
+                        <a href="#appel?id=${c.id}" onclick="navigateTo('appel?id=${c.id}'); return false;" class="text-sm font-medium" style="color: var(--burgundy);">Voir l'appel</a>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderArticle(id) {
+            const essay = store.essays.find(e => e.id === id);
+            if (!essay) return navigateTo('404');
+            const container = document.getElementById('articleContainer');
+            const hasAccess = essay.access === 'free' || isMember() || store.unlockedContent.includes(id);
+            const related = store.essays.filter(e => e.id !== id && e.category === essay.category).slice(0, 2);
+            container.innerHTML = `
+                <article>
+                    <header class="mb-12">
+                        <div class="flex items-center gap-3 mb-4">
+                            ${essay.access === 'premium' ? '<span class="premium-badge">Premium</span>' : '<span class="lock-badge">Libre accès</span>'}
+                            <span class="text-sm" style="color: var(--graphite);">${essay.category}</span>
+                            <span class="text-sm" style="color: var(--graphite);">${formatDate(essay.createdAt)}</span>
+                        </div>
+                        <h1 class="font-serif text-3xl md:text-4xl font-semibold leading-tight mb-6">${escapeHtml(essay.title)}</h1>
+                        <p class="font-serif text-xl italic" style="color: var(--graphite);">${escapeHtml(essay.lede)}</p>
+                    </header>
+                    ${!hasAccess ? `
+                        <div class="paywall-fade mb-8">
+                            <div class="drop-cap font-serif text-lg leading-relaxed" style="color: var(--graphite);">${essay.body.substring(0, 600)}...</div>
+                        </div>
+                        <div class="p-8 text-center border" style="border-color: var(--sand); background: var(--papyrus);">
+                            <i data-lucide="lock" class="w-8 h-8 mx-auto mb-4" style="color: var(--burgundy);"></i>
+                            <h3 class="font-serif text-xl font-semibold mb-2">Article premium</h3>
+                            <p class="text-sm mb-6" style="color: var(--graphite);">Accédez à la suite et à l'intégralité des essais pour ${essay.price} CHF ou abonnez-vous.</p>
+                            <div class="flex flex-wrap justify-center gap-3">
+                                <button onclick="initiateCheckout('essay', '${essay.id}')" class="btn-primary">Acheter cet article (${essay.price} CHF)</button>
+                                <button onclick="navigateTo('inscription')" class="btn-ghost">Devenir membre</button>
+                            </div>
+                        </div>
+                    ` : `
+                        <div class="drop-cap font-serif text-lg leading-relaxed mb-12" style="color: var(--graphite);">${essay.body.replace(/\n\n/g, '</p><p class="font-serif text-lg leading-relaxed mb-6" style="color: var(--graphite);">')}</div>
+                        ${store.unlockedContent.includes(id) ? '<p class="text-sm mb-8" style="color: var(--gold-soft);"><i data-lucide="unlock" class="w-4 h-4 inline mr-1"></i> Article débloqué</p>' : ''}
+                    `}
+                    ${related.length > 0 ? `
+                        <div class="border-t pt-8 mt-12" style="border-color: var(--sand);">
+                            <p class="kicker mb-4">Sur le même thème</p>
+                            <div class="space-y-4">
+                                ${related.map(r => `
+                                    <a href="#article?id=${r.id}" onclick="navigateTo('article?id=${r.id}'); return false;" class="block p-4 hover:bg-papyrus transition-colors">
+                                        <p class="font-serif font-semibold">${escapeHtml(r.title)}</p>
+                                        <p class="text-sm" style="color: var(--graphite);">${escapeHtml(r.lede.substring(0, 100))}...</p>
+                                    </a>
+                                `).join('')}
+                            </div>
+                        </div>
+                    ` : ''}
+                    <div class="border-t pt-8 mt-12" style="border-color: var(--sand);">
+                        <p class="kicker mb-4">Avis des lecteurs</p>
+                        <div id="articleReviews"></div>
+                        ${isMember() ? `
+                            <form onsubmit="handleReviewSubmit(event, '${id}', 'essay')" class="mt-6">
+                                <h4 class="font-medium mb-3">Ajouter un avis</h4>
+                                <div class="flex gap-2 mb-3">
+                                    ${[1,2,3,4,5].map(n => `<button type="button" onclick="setRating(${n})" class="star-rating text-2xl" data-rating="${n}" style="color: var(--sand);">★</button>`).join('')}
+                                </div>
+                                <input type="hidden" id="reviewRating" value="5">
+                                <textarea required rows="3" class="input-editorial mb-3" placeholder="Votre commentaire..." name="text"></textarea>
+                                <button type="submit" class="btn-primary">Publier</button>
+                            </form>
+                        ` : '<p class="text-sm" style="color: var(--graphite);"><a href="#connexion" onclick="navigateTo(\'connexion\')" style="color: var(--burgundy);">Connectez-vous</a> pour laisser un avis.</p>'}
+                    </div>
+                </article>
+            `;
+            renderReviews('articleReviews', id, 'essay');
+            setTimeout(() => lucide.createIcons(), 50);
+        }
+
+        function renderReviews(containerId, itemId, itemType) {
+            const container = document.getElementById(containerId);
+            const reviews = store.reviews.filter(r => r.itemId === itemId && r.itemType === itemType);
+            if (reviews.length === 0) {
+                container.innerHTML = '<p class="text-sm" style="color: var(--graphite);">Aucun avis pour le moment.</p>';
+                return;
+            }
+            const avg = reviews.reduce((s, r) => s + r.rating, 0) / reviews.length;
+            container.innerHTML = `
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="stars">
+                        ${[1,2,3,4,5].map(n => `<span class="${n <= Math.round(avg) ? 'star' : 'star empty'}">★</span>`).join('')}
+                    </div>
+                    <span class="text-sm" style="color: var(--graphite);">${avg.toFixed(1)} · ${reviews.length} avis</span>
+                </div>
+                <div class="space-y-4">
+                    ${reviews.map(r => `
+                        <div class="p-4" style="background: var(--papyrus);">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="font-medium text-sm">${escapeHtml(r.author)}</span>
+                                <div class="stars text-sm">
+                                    ${[1,2,3,4,5].map(n => `<span class="${n <= r.rating ? 'star' : 'star empty'}">★</span>`).join('')}
+                                </div>
+                            </div>
+                            <p class="text-sm" style="color: var(--graphite);">${escapeHtml(r.text)}</p>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
+
+        let currentRating = 5;
+        function setRating(n) {
+            currentRating = n;
+            document.getElementById('reviewRating').value = n;
+            document.querySelectorAll('.star-rating').forEach(el => {
+                el.style.color = parseInt(el.dataset.rating) <= n ? 'var(--gold)' : 'var(--sand)';
+            });
+        }
+
+        function handleReviewSubmit(e, itemId, itemType) {
+            e.preventDefault();
+            const text = e.target.text.value;
+            const review = {
+                id: 'rev-' + Date.now(),
+                itemId,
+                itemType,
+                author: getCurrentUser()?.firstName + ' ' + getCurrentUser()?.lastName || 'Anonyme',
+                rating: currentRating,
+                text,
+                date: new Date().toISOString()
+            };
+            store.reviews.push(review);
+            store.stats.reviewsCount++;
+            saveStore();
+            showToast('Avis publié');
+            renderArticle(itemId);
+        }
+
+        function renderPublicationsList() {
+            const container = document.getElementById('publicationsList');
+            const filter = document.querySelector('[data-filter].active-filter')?.dataset.filter || 'all';
+            const search = document.getElementById('pubSearchInput')?.value.toLowerCase() || '';
+            let pubs = store.essays.filter(e => e.status === 'published');
+            if (filter !== 'all') {
+                if (filter === 'essay') pubs = pubs.filter(e => e.access === 'free');
+                else if (filter === 'article') pubs = pubs.filter(e => e.access === 'premium');
+                else if (filter === 'review') pubs = [];
+            }
+            if (search) {
+                pubs = pubs.filter(e => e.title.toLowerCase().includes(search) || e.category.toLowerCase().includes(search) || e.lede.toLowerCase().includes(search));
+            }
+            container.innerHTML = pubs.map(e => `
+                <div class="pub-item">
+                    <div class="pub-year">${new Date(e.createdAt).getFullYear()}</div>
+                    <div class="flex-1">
+                        <div class="flex items-center gap-2 mb-1">
+                            ${e.access === 'premium' ? '<span class="premium-badge">Premium</span>' : '<span class="lock-badge">Libre accès</span>'}
+                            <span class="text-xs" style="color: var(--graphite);">${e.category}</span>
+                        </div>
+                        <h3 class="font-serif text-lg font-semibold mb-2">
+                            <a href="#article?id=${e.id}" onclick="navigateTo('article?id=${e.id}'); return false;" class="hover:underline" style="color: var(--ink);">${escapeHtml(e.title)}</a>
+                        </h3>
+                        <p class="text-sm mb-3" style="color: var(--graphite);">${escapeHtml(e.lede.substring(0, 200))}...</p>
+                        <a href="#article?id=${e.id}" onclick="navigateTo('article?id=${e.id}'); return false;" class="inline-flex items-center gap-2 text-sm" style="color: var(--burgundy);">
+                            ${e.access === 'premium' && !hasAccess(e.id) ? '<i data-lucide="lock" class="w-3.5 h-3.5"></i> Lire (premium)' : 'Lire la suite'}
+                        </a>
+                    </div>
+                </div>
+            `).join('') || '<p class="text-center py-12" style="color: var(--graphite);">Aucune publication ne correspond à vos critères.</p>';
+            setTimeout(() => lucide.createIcons(), 50);
+        }
+
+        function filterPubs(type) {
+            document.querySelectorAll('[data-filter]').forEach(el => {
+                el.classList.remove('active-filter');
+                el.style.background = '';
+                el.style.color = '';
+                el.style.borderColor = 'var(--sand)';
+            });
+            const active = document.querySelector(`[data-filter="${type}"]`);
+            active.classList.add('active-filter');
+            active.style.background = 'var(--ink)';
+            active.style.color = 'var(--ivory)';
+            active.style.borderColor = 'var(--ink)';
+            renderPublicationsList();
+        }
+
+        function filterPubSearch(val) {
+            renderPublicationsList();
+        }
+
+        function renderBooksList() {
+            const container = document.getElementById('booksList');
+            container.innerHTML = store.books.map(b => `
+                <div class="layout-asymmetric items-start">
+                    <div>
+                        <div class="book-object relative inline-block">
+                            <div class="relative bg-white p-6 shadow-md" style="width: 200px;">
+                                <div class="book-spine"></div>
+                                <div class="pl-3">
+                                    <p class="text-xs uppercase tracking-widest mb-2" style="color: var(--gold-soft);">${b.category}</p>
+                                    <h3 class="font-serif text-lg font-semibold leading-tight">${escapeHtml(b.title)}</h3>
+                                    ${b.discount > 0 ? `<p class="text-xs mt-2" style="color: var(--burgundy);">-${b.discount}%</p>` : ''}
+                                </div>
+                            </div>
+                        </div>
+                        ${b.status === 'preorder' ? '<p class="mt-3 text-xs"><span class="lock-badge">titre de travail — démonstration</span></p>' : ''}
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-3 mb-3">
+                            ${b.status === 'preorder' ? '<span class="premium-badge">Précommande</span>' : b.discount > 0 ? '<span class="premium-badge">Promo</span>' : '<span class="lock-badge">En vente</span>'}
+                        </div>
+                        <h2 class="font-serif text-2xl font-semibold mb-2">${escapeHtml(b.title)}</h2>
+                        <p class="italic mb-4" style="color: var(--graphite);">${escapeHtml(b.subtitle)}</p>
+                        <p class="mb-6" style="color: var(--graphite);">${escapeHtml(b.blurb)}</p>
+                        <div class="flex items-center gap-4 mb-6">
+                            <span class="font-serif text-3xl font-semibold" style="color: var(--burgundy);">
+                                ${b.discount > 0 ? `<span class="price-strike text-lg">${b.price} CHF</span> ` : ''}${Math.round(b.price * (1 - b.discount/100))} CHF
+                            </span>
+                            ${b.stock > 0 ? `<span class="text-sm" style="color: var(--graphite);">Stock : ${b.stock}</span>` : b.status === 'preorder' ? '<span class="text-sm" style="color: var(--graphite);">Parution prévue</span>' : ''}
+                        </div>
+                        <div class="flex flex-wrap gap-3">
+                            <button onclick="navigateTo('livre?id=${b.id}')" class="btn-primary">${b.status === 'preorder' ? 'Précommander' : 'Acheter'}</button>
+                            <button onclick="navigateTo('livre?id=${b.id}')" class="btn-ghost">Voir la fiche</button>
+                        </div>
+                    </div>
+                </div>
+                ${b !== store.books[store.books.length-1] ? '<div class="hairline"></div>' : ''}
+            `).join('');
+        }
+
+        function renderBookDetail(id) {
+            const book = store.books.find(b => b.id === id);
+            if (!book) return navigateTo('404');
+            const container = document.getElementById('bookDetailContainer');
+            const reviews = store.reviews.filter(r => r.itemId === id && r.itemType === 'book');
+            const avg = reviews.length > 0 ? reviews.reduce((s, r) => s + r.rating, 0) / reviews.length : 0;
+            container.innerHTML = `
+                <div class="layout-asymmetric items-start mb-12">
+                    <div>
+                        <div class="book-object relative inline-block">
+                            <div class="relative bg-white p-8 shadow-lg" style="width: 260px;">
+                                <div class="book-spine"></div>
+                                <div class="pl-4">
+                                    <p class="text-xs uppercase tracking-widest mb-4" style="color: var(--gold-soft);">${book.category}</p>
+                                    <h3 class="font-serif text-2xl font-semibold leading-tight mb-3">${escapeHtml(book.title)}</h3>
+                                    <p class="text-sm italic mb-4" style="color: var(--graphite);">${escapeHtml(book.subtitle)}</p>
+                                    <div class="hairline-left my-4"></div>
+                                    <p class="text-xs" style="color: var(--graphite);">Sophia Dachraoui</p>
+                                </div>
+                            </div>
+                        </div>
+                        ${book.status === 'preorder' ? '<p class="mt-4 text-xs"><span class="lock-badge">titre de travail — démonstration</span></p>' : ''}
+                    </div>
+                    <div class="max-w-xl">
+                        <div class="flex items-center gap-3 mb-4">
+                            ${book.status === 'preorder' ? '<span class="premium-badge">Précommande</span>' : book.discount > 0 ? '<span class="premium-badge">Promo -' + book.discount + '%</span>' : '<span class="lock-badge">En vente</span>'}
+                        </div>
+                        <h1 class="font-serif text-4xl font-semibold mb-4">${escapeHtml(book.title)}</h1>
+                        <p class="font-serif text-xl italic mb-6" style="color: var(--graphite);">${escapeHtml(book.subtitle)}</p>
+                        ${reviews.length > 0 ? `
+                            <div class="flex items-center gap-3 mb-6">
+                                <div class="stars">
+                                    ${[1,2,3,4,5].map(n => `<span class="${n <= Math.round(avg) ? 'star' : 'star empty'}">★</span>`).join('')}
+                                </div>
+                                <span class="text-sm" style="color: var(--graphite);">${avg.toFixed(1)} · ${reviews.length} avis</span>
+                            </div>
+                        ` : ''}
+                        <div class="flex items-center gap-4 mb-8">
+                            <span class="font-serif text-4xl font-semibold" style="color: var(--burgundy);">
+                                ${book.discount > 0 ? `<span class="price-strike text-2xl">${book.price} CHF</span> ` : ''}${Math.round(book.price * (1 - book.discount/100))} CHF
+                            </span>
+                        </div>
+                        <div class="prose max-w-none mb-8">
+                            <p style="color: var(--graphite);">${escapeHtml(book.description).replace(/\n\n/g, '</p><p style="color: var(--graphite);">')}</p>
+                        </div>
+                        <dl class="space-y-3 mb-8 text-sm">
+                            <div class="flex gap-4"><dt style="color: var(--graphite); min-width: 100px;">Pages</dt><dd>${book.pages}</dd></div>
+                            <div class="flex gap-4"><dt style="color: var(--graphite); min-width: 100px;">Éditeur</dt><dd>${escapeHtml(book.publisher)}</dd></div>
+                            <div class="flex gap-4"><dt style="color: var(--graphite); min-width: 100px;">ISBN</dt><dd>${escapeHtml(book.isbn)}</dd></div>
+                            <div class="flex gap-4"><dt style="color: var(--graphite); min-width: 100px;">Parution</dt><dd>${escapeHtml(book.releaseDate)}</dd></div>
+                        </dl>
+                        <button onclick="initiateCheckout('book', '${book.id}')" class="btn-primary"><i data-lucide="shopping-bag" class="w-4 h-4"></i> ${book.status === 'preorder' ? 'Précommander' : 'Ajouter au panier'}</button>
+                    </div>
+                </div>
+                <div class="border-t pt-8" style="border-color: var(--sand);">
+                    <p class="kicker mb-4">Avis</p>
+                    <div id="bookReviews"></div>
+                    ${isMember() ? `
+                        <form onsubmit="handleReviewSubmit(event, '${id}', 'book')" class="mt-6">
+                            <h4 class="font-medium mb-3">Ajouter un avis</h4>
+                            <div class="flex gap-2 mb-3">
+                                ${[1,2,3,4,5].map(n => `<button type="button" onclick="setRating(${n})" class="star-rating text-2xl" data-rating="${n}" style="color: var(--sand);">★</button>`).join('')}
+                            </div>
+                            <input type="hidden" id="reviewRating" value="5">
+                            <textarea required rows="3" class="input-editorial mb-3" placeholder="Votre commentaire..." name="text"></textarea>
+                            <button type="submit" class="btn-primary">Publier</button>
+                        </form>
+                    ` : '<p class="text-sm" style="color: var(--graphite);"><a href="#connexion" onclick="navigateTo(\'connexion\')" style="color: var(--burgundy);">Connectez-vous</a> pour laisser un avis.</p>'}
+                </div>
+            `;
+            renderReviews('bookReviews', id, 'book');
+            setTimeout(() => lucide.createIcons(), 50);
+        }
+
+        function renderCoursesList() {
+            const container = document.getElementById('coursesList');
+            container.innerHTML = store.courses.map(c => `
+                <div class="course-featured p-8 ${c.id !== 'course-1' ? 'lg:grid lg:grid-cols-3 lg:gap-8' : ''}">
+                    <div class="${c.id !== 'course-1' ? 'lg:col-span-2' : ''}">
+                        <div class="flex items-center gap-3 mb-4">
+                            <span class="lock-badge">${c.type}</span>
+                            ${c.seats < 10 ? '<span class="premium-badge">Places limitées</span>' : ''}
+                        </div>
+                        <h2 class="font-serif text-2xl font-semibold mb-3">${escapeHtml(c.title)}</h2>
+                        <p class="mb-6" style="color: var(--graphite);">${escapeHtml(c.description.substring(0, 300))}...</p>
+                        <div class="flex flex-wrap gap-6 text-sm mb-6" style="color: var(--graphite);">
+                            <span><i data-lucide="clock" class="w-4 h-4 inline mr-1"></i> ${c.duration}</span>
+                            <span><i data-lucide="map-pin" class="w-4 h-4 inline mr-1"></i> ${c.format}</span>
+                            <span><i data-lucide="calendar" class="w-4 h-4 inline mr-1"></i> ${c.nextSession}</span>
+                            <span><i data-lucide="users" class="w-4 h-4 inline mr-1"></i> ${c.seats} places</span>
+                        </div>
+                    </div>
+                    <div class="flex flex-col justify-between">
+                        <div class="font-serif text-4xl font-semibold mb-4" style="color: var(--burgundy);">${c.price} CHF</div>
+                        <div class="flex gap-3">
+                            <button onclick="navigateTo('coursDetail?id=${c.id}')" class="btn-primary">Voir le programme</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderCourseDetail(id) {
+            const course = store.courses.find(c => c.id === id);
+            if (!course) return navigateTo('404');
+            const container = document.getElementById('courseDetailContainer');
+            const reviews = store.reviews.filter(r => r.itemId === id && r.itemType === 'course');
+            const avg = reviews.length > 0 ? reviews.reduce((s, r) => s + r.rating, 0) / reviews.length : 0;
+            container.innerHTML = `
+                <div class="max-w-3xl">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="lock-badge">${course.type}</span>
+                    </div>
+                    <h1 class="font-serif text-4xl font-semibold mb-4">${escapeHtml(course.title)}</h1>
+                    ${reviews.length > 0 ? `
+                        <div class="flex items-center gap-3 mb-6">
+                            <div class="stars">
+                                ${[1,2,3,4,5].map(n => `<span class="${n <= Math.round(avg) ? 'star' : 'star empty'}">★</span>`).join('')}
+                            </div>
+                            <span class="text-sm" style="color: var(--graphite);">${avg.toFixed(1)} · ${reviews.length} avis</span>
+                        </div>
+                    ` : ''}
+                    <div class="flex flex-wrap gap-6 text-sm mb-8 p-6" style="background: var(--papyrus);">
+                        <span><i data-lucide="clock" class="w-4 h-4 inline mr-1"></i> ${course.duration}</span>
+                        <span><i data-lucide="map-pin" class="w-4 h-4 inline mr-1"></i> ${course.format}</span>
+                        <span><i data-lucide="calendar" class="w-4 h-4 inline mr-1"></i> Prochaine session : ${course.nextSession}</span>
+                        <span><i data-lucide="users" class="w-4 h-4 inline mr-1"></i> ${course.seats} places</span>
+                    </div>
+                    <div class="prose max-w-none mb-8">
+                        <p style="color: var(--graphite);">${escapeHtml(course.description).replace(/\n\n/g, '</p><p style="color: var(--graphite);">')}</p>
+                    </div>
+                    <div class="flex items-center justify-between p-6 border" style="border-color: var(--sand);">
+                        <span class="font-serif text-3xl font-semibold" style="color: var(--burgundy);">${course.price} CHF</span>
+                        <button onclick="initiateCheckout('course', '${course.id}')" class="btn-primary"><i data-lucide="shopping-bag" class="w-4 h-4"></i> S'inscrire</button>
+                    </div>
+                </div>
+                <div class="border-t pt-8 mt-12" style="border-color: var(--sand);">
+                    <p class="kicker mb-4">Avis</p>
+                    <div id="courseReviews"></div>
+                    ${isMember() ? `
+                        <form onsubmit="handleReviewSubmit(event, '${id}', 'course')" class="mt-6">
+                            <h4 class="font-medium mb-3">Ajouter un avis</h4>
+                            <div class="flex gap-2 mb-3">
+                                ${[1,2,3,4,5].map(n => `<button type="button" onclick="setRating(${n})" class="star-rating text-2xl" data-rating="${n}" style="color: var(--sand);">★</button>`).join('')}
+                            </div>
+                            <input type="hidden" id="reviewRating" value="5">
+                            <textarea required rows="3" class="input-editorial mb-3" placeholder="Votre commentaire..." name="text"></textarea>
+                            <button type="submit" class="btn-primary">Publier</button>
+                        </form>
+                    ` : '<p class="text-sm" style="color: var(--graphite);"><a href="#connexion" onclick="navigateTo(\'connexion\')" style="color: var(--burgundy);">Connectez-vous</a> pour laisser un avis.</p>'}
+                </div>
+            `;
+            renderReviews('courseReviews', id, 'course');
+            setTimeout(() => lucide.createIcons(), 50);
+        }
+
+        function renderCollectifsList() {
+            const container = document.getElementById('collectifsList');
+            container.innerHTML = store.calls.map(c => `
+                <article class="pb-8 border-b" style="border-color: var(--sand);">
+                    <div class="flex items-center gap-3 mb-3">
+                        <span class="lock-badge">${c.status === 'open' ? 'Appel ouvert' : 'Appel clos'}</span>
+                        <span class="text-sm" style="color: var(--graphite);">Date limite : ${formatDate(c.deadline)}</span>
+                    </div>
+                    <h2 class="font-serif text-2xl font-semibold mb-2">
+                        <a href="#appel?id=${c.id}" onclick="navigateTo('appel?id=${c.id}'); return false;" class="hover:underline" style="color: var(--ink);">${escapeHtml(c.title)}</a>
+                    </h2>
+                    <p class="italic mb-4" style="color: var(--graphite);">${escapeHtml(c.subtitle)}</p>
+                    <p class="text-sm mb-4" style="color: var(--graphite);">${escapeHtml(c.description.substring(0, 250))}...</p>
+                    <a href="#appel?id=${c.id}" onclick="navigateTo('appel?id=${c.id}'); return false;" class="inline-flex items-center gap-2 text-sm font-medium" style="color: var(--burgundy);">Voir l'appel complet <i data-lucide="arrow-right" class="w-4 h-4"></i></a>
+                </article>
+            `).join('');
+        }
+
+        function renderCallDetail(id) {
+            const call = store.calls.find(c => c.id === id);
+            if (!call) return navigateTo('404');
+            const container = document.getElementById('callDetailContainer');
+            container.innerHTML = `
+                <header class="mb-8">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="lock-badge">${call.status === 'open' ? 'Appel ouvert' : 'Appel clos'}</span>
+                    </div>
+                    <h1 class="font-serif text-4xl font-semibold mb-4">${escapeHtml(call.title)}</h1>
+                    <p class="font-serif text-xl italic" style="color: var(--graphite);">${escapeHtml(call.subtitle)}</p>
+                </header>
+                <div class="prose max-w-none mb-8">
+                    <p style="color: var(--graphite);">${escapeHtml(call.description).replace(/\n\n/g, '</p><p style="color: var(--graphite);">')}</p>
+                </div>
+                <div class="p-6 border" style="border-color: var(--sand); background: var(--papyrus);">
+                    <p class="font-medium mb-2">Date limite de proposition</p>
+                    <p class="font-serif text-2xl mb-6">${formatDate(call.deadline)}</p>
+                    <a href="#proposition" onclick="navigateTo('proposition'); return false;" class="btn-primary"><i data-lucide="send" class="w-4 h-4"></i> Soumettre une proposition</a>
+                </div>
+            `;
+        }
+
+        function renderMemberArea() {
+            if (!isMember()) {
+                navigateTo('connexion');
+                return;
+            }
+            const user = getCurrentUser();
+            const accessList = document.getElementById('memberAccessList');
+            const unlocked = store.essays.filter(e => store.unlockedContent.includes(e.id) || e.access === 'free');
+            accessList.innerHTML = unlocked.length > 0 ? `
+                <div class="space-y-3">
+                    ${unlocked.map(e => `
+                        <a href="#article?id=${e.id}" onclick="navigateTo('article?id=${e.id}'); return false;" class="flex items-center justify-between p-3 hover:bg-papyrus transition-colors">
+                            <div>
+                                <p class="font-medium text-sm">${escapeHtml(e.title)}</p>
+                                <p class="text-xs" style="color: var(--graphite);">${e.category}</p>
+                            </div>
+                            <i data-lucide="arrow-right" class="w-4 h-4" style="color: var(--graphite);"></i>
+                        </a>
+                    `).join('')}
+                </div>
+            ` : '<p class="text-sm" style="color: var(--graphite);">Aucun contenu débloqué pour le moment.</p>';
+            const ordersList = document.getElementById('memberOrdersList');
+            const userOrders = store.orders.filter(o => o.userEmail === user.email);
+            ordersList.innerHTML = userOrders.length > 0 ? `
+                <div class="space-y-3">
+                    ${userOrders.map(o => `
+                        <div class="flex items-center justify-between p-3" style="background: var(--papyrus);">
+                            <div>
+                                <p class="font-medium text-sm">Commande ${o.id}</p>
+                                <p class="text-xs" style="color: var(--graphite);">${o.items.map(i => i.name).join(', ')}</p>
+                            </div>
+                            <div class="text-right">
+                                <p class="font-medium text-sm">${o.total} CHF</p>
+                                <span class="status ${o.status === 'completed' ? 'status-success' : 'status-pending'} text-xs">${o.status === 'completed' ? 'Payée' : 'En attente'}</span>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            ` : '<p class="text-sm" style="color: var(--graphite);">Aucune commande pour le moment.</p>';
+            document.getElementById('memberProfile').innerHTML = `
+                <p class="font-medium">${user.firstName} ${user.lastName}</p>
+                <p class="text-sm" style="color: var(--graphite);">${user.email}</p>
+                <p class="text-sm mt-2" style="color: var(--graphite);">Compte ${user.role === 'owner' ? 'propriétaire' : 'membre'}</p>
+            `;
+        }
+
+        function initiateCheckout(type, id) {
+            let item, itemType, name, price;
+            if (type === 'essay') {
+                item = store.essays.find(e => e.id === id);
+                itemType = 'essay';
+                name = item.title;
+                price = item.price;
+            } else if (type === 'book') {
+                item = store.books.find(b => b.id === id);
+                itemType = 'book';
+                name = item.title;
+                price = Math.round(item.price * (1 - item.discount/100));
+            } else if (type === 'course') {
+                item = store.courses.find(c => c.id === id);
+                itemType = 'course';
+                name = item.title;
+                price = item.price;
+            } else if (type === 'subscription') {
+                itemType = 'subscription';
+                name = id === 'lecteur' ? 'Lecteur 1 an' : 'Chercheur 1 an';
+                price = id === 'lecteur' ? 48 : 96;
+            }
+            store.cart = { type: itemType, id, name, price };
+            saveStore();
+            navigateTo('checkout');
+        }
+
+        function renderCheckout() {
+            const cart = store.cart;
+            if (!cart) return navigateTo('accueil');
+            const container = document.getElementById('checkoutSummary');
+            container.innerHTML = `
+                <h3 class="font-serif text-xl font-semibold mb-4">Récapitulatif</h3>
+                <div class="flex justify-between items-center">
+                    <span>${escapeHtml(cart.name)}</span>
+                    <span class="font-serif text-xl font-semibold">${cart.price} CHF</span>
+                </div>
+            `;
+        }
+
+        function handleCheckout(e) {
+            e.preventDefault();
+            const cart = store.cart;
+            if (!cart) return;
+            const user = getCurrentUser();
+            const order = {
+                id: 'ord-' + Date.now(),
+                userEmail: user?.email || 'invité@demo.ch',
+                items: [{ type: cart.type, name: cart.name, price: cart.price }],
+                total: cart.price,
+                status: 'completed',
+                date: new Date().toISOString()
+            };
+            store.orders.push(order);
+            store.stats.ordersCount++;
+            store.stats.sales += cart.price;
+            if (cart.type === 'essay') {
+                store.unlockedContent.push(cart.id);
+            } else if (cart.type === 'subscription') {
+                store.essays.filter(e => e.access === 'premium').forEach(e => {
+                    if (!store.unlockedContent.includes(e.id)) {
+                        store.unlockedContent.push(e.id);
+                    }
+                });
+            }
+            store.cart = null;
+            saveStore();
+            showToast('Paiement confirmé');
+            navigateTo('confirmation');
+        }
+
+        function handleNewsletterSubmit(e) {
+            e.preventDefault();
+            const email = e.target.querySelector('input[type="email"]').value;
+            if (store.newsletter.find(n => n.email === email)) {
+                showToast('Vous êtes déjà inscrit');
+                return;
+            }
+            store.newsletter.push({ email, date: new Date().toISOString() });
+            store.stats.newsletterCount++;
+            saveStore();
+            showToast('Inscription confirmée');
+            e.target.reset();
+        }
+
+        function handleProposalSubmit(e) {
+            e.preventDefault();
+            const form = e.target;
+            const proposal = {
+                id: 'prop-' + Date.now(),
+                name: form.name.value,
+                email: form.email.value,
+                affiliation: form.affiliation.value,
+                callId: form.callId.value || null,
+                title: form.title.value,
+                abstract: form.abstract.value,
+                date: new Date().toISOString(),
+                status: 'pending'
+            };
+            store.proposals.push(proposal);
+            store.stats.proposalsCount++;
+            saveStore();
+            showToast('Proposition envoyée');
+            navigateTo('accueil');
+        }
+
+        function incrementVisits() {
+            store.stats.visits++;
+            if (!localStorage.getItem('sd_visitor')) {
+                localStorage.setItem('sd_visitor', '1');
+                store.stats.uniqueVisitors++;
+            }
+            saveStore();
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+
+        function openDrawer() {
+            document.getElementById('mobileDrawer').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeDrawer() {
+            document.getElementById('mobileDrawer').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function formatDate(dateStr) {
+            const d = new Date(dateStr);
+            return d.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
+        }
+
+        function closeModal() {
+            document.getElementById('modal').classList.remove('active');
+        }
+
+        function closeModalOnBackdrop(e) {
+            if (e.target === e.currentTarget) closeModal();
+        }
+
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape') {
+                closeSearch();
+                closeDrawer();
+                closeModal();
+            }
+        });
+
+        document.getElementById('searchInput')?.addEventListener('input', e => {
+            renderSearchResults(e.target.value);
+        });
+
+        function init() {
+            initNav();
+            updateAuthUI();
+            renderHomePublications();
+            renderHomeArticles();
+            renderHomeCalls();
+            renderBooksList();
+            renderCoursesList();
+            renderCollectifsList();
+            renderPublicationsList();
+            handleHash();
+            window.addEventListener('hashchange', handleHash);
+            lucide.createIcons();
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', init);
+        } else {
+            init();
+        }
+    </script>
+</body>
+</html>

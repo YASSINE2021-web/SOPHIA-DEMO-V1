@@ -1,0 +1,1310 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atelier — Sophia Dachraoui</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --ivory: #FAF8F5;
+            --papyrus: #F3EEE6;
+            --ink: #111827;
+            --graphite: #334155;
+            --burgundy: #6B1D2F;
+            --burgundy-hover: #551524;
+            --sand: #E5E0D8;
+            --gold: #D4AF37;
+            --gold-soft: #C4A35A;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--ivory);
+            color: var(--ink);
+            line-height: 1.6;
+        }
+
+        .font-serif { font-family: 'Cormorant Garamond', Georgia, serif; }
+
+        .admin-sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 260px;
+            background: var(--ink);
+            color: var(--ivory);
+            overflow-y: auto;
+            z-index: 100;
+        }
+
+        .admin-main {
+            margin-left: 260px;
+            min-height: 100vh;
+        }
+
+        .admin-nav-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1.5rem;
+            color: rgba(250, 248, 245, 0.7);
+            font-size: 0.875rem;
+            transition: all 0.2s;
+            cursor: pointer;
+            background: transparent;
+            border: none;
+            width: 100%;
+            text-align: left;
+        }
+
+        .admin-nav-item:hover, .admin-nav-item.active {
+            color: var(--ivory);
+            background: rgba(250, 248, 245, 0.05);
+        }
+
+        .kpi-card {
+            background: var(--papyrus);
+            border: 1px solid var(--sand);
+            padding: 1.5rem;
+        }
+
+        .kpi-value {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: var(--burgundy);
+        }
+
+        .admin-table {
+            width: 100%;
+            font-size: 0.875rem;
+            border-collapse: collapse;
+        }
+
+        .admin-table th {
+            text-align: left;
+            padding: 0.875rem 1rem;
+            font-weight: 500;
+            color: var(--graphite);
+            border-bottom: 1px solid var(--sand);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .admin-table td {
+            padding: 0.875rem 1rem;
+            border-bottom: 1px solid var(--sand);
+        }
+
+        .admin-table tr:hover td {
+            background: var(--papyrus);
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.625rem 1.25rem;
+            background: var(--burgundy);
+            color: white;
+            font-size: 0.875rem;
+            font-weight: 500;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+
+        .btn-primary:hover {
+            background: var(--burgundy-hover);
+        }
+
+        .btn-ghost {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.625rem 1.25rem;
+            border: 1px solid var(--sand);
+            background: transparent;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: var(--ink);
+        }
+
+        .input-editorial {
+            width: 100%;
+            padding: 0.625rem 0.875rem;
+            background: var(--ivory);
+            border: 1px solid var(--sand);
+            font-size: 0.9375rem;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .input-editorial:focus {
+            outline: none;
+            border-color: var(--burgundy);
+        }
+
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 500;
+            background: rgba(17, 24, 39, 0.5);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-panel {
+            background: var(--ivory);
+            max-width: 600px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 2rem;
+            position: relative;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            padding: 1rem 1.5rem;
+            background: var(--ink);
+            color: var(--ivory);
+            font-size: 0.875rem;
+            z-index: 600;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s;
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .status {
+            display: inline-flex;
+            padding: 0.25rem 0.75rem;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .status-success { background: #ECFDF5; color: #065F46; }
+        .status-pending { background: #FEF3C7; color: #92400E; }
+        .status-draft { background: #F3F4F6; color: #374151; }
+        .status-published { background: #DBEAFE; color: #1E40AF; }
+
+        @media (max-width: 1023px) {
+            .admin-sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.3s;
+            }
+            .admin-sidebar.open {
+                transform: translateX(0);
+            }
+            .admin-main {
+                margin-left: 0;
+            }
+        }
+
+        .section-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.875rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div id="mobileOverlay" class="fixed inset-0 bg-black/50 z-40 hidden lg:hidden" onclick="toggleSidebar()"></div>
+
+    <aside class="admin-sidebar" id="sidebar">
+        <div class="p-6 border-b border-white/10">
+            <p class="font-serif text-xl">Atelier</p>
+            <p class="text-xs opacity-60 mt-1">Sophia Dachraoui</p>
+        </div>
+        <nav class="py-4" id="adminNav"></nav>
+        <div class="absolute bottom-0 left-0 right-0 p-4 border-t border-white/10">
+            <a href="index.html" class="admin-nav-item">
+                <i data-lucide="external-link" class="w-4 h-4"></i>
+                Voir le site
+            </a>
+            <button onclick="logout()" class="admin-nav-item">
+                <i data-lucide="log-out" class="w-4 h-4"></i>
+                Déconnexion
+            </button>
+        </div>
+    </aside>
+
+    <main class="admin-main">
+        <header class="sticky top-0 z-30 bg-white/90 backdrop-blur border-b px-6 py-4 flex items-center justify-between" style="border-color: var(--sand);">
+            <div class="flex items-center gap-4">
+                <button onclick="toggleSidebar()" class="lg:hidden p-2">
+                    <i data-lucide="menu" class="w-5 h-5"></i>
+                </button>
+                <h1 class="font-serif text-2xl font-semibold" id="pageTitle">Tableau de bord</h1>
+            </div>
+            <div class="flex items-center gap-3">
+                <span class="text-sm" style="color: var(--graphite);">Propriétaire</span>
+                <div class="w-8 h-8 rounded-full flex items-center justify-center text-white text-sm font-medium" style="background: var(--burgundy);">S</div>
+            </div>
+        </header>
+
+        <div class="p-6" id="adminContent"></div>
+    </main>
+
+    <div class="modal-overlay" id="modal" onclick="closeModalOnBackdrop(event)">
+        <div class="modal-panel" onclick="event.stopPropagation()">
+            <button onclick="closeModal()" class="absolute top-4 right-4 p-2">
+                <i data-lucide="x" class="w-4 h-4"></i>
+            </button>
+            <div id="modalContent"></div>
+        </div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <script>
+        const STORAGE_KEY = 'sd_atelier_v2';
+        
+        function getStore() {
+            return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+        }
+        
+        function setStore(store) {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(store));
+        }
+        
+        let store = getStore();
+        let currentSection = 'dashboard';
+
+        const sections = [
+            { id: 'dashboard', label: 'Tableau de bord', icon: 'layout-dashboard' },
+            { id: 'essays', label: 'Essais', icon: 'file-text' },
+            { id: 'books', label: 'Livres', icon: 'book-open' },
+            { id: 'courses', label: 'Cours', icon: 'graduation-cap' },
+            { id: 'premium', label: 'Premium', icon: 'crown' },
+            { id: 'calls', label: 'Appels', icon: 'megaphone' },
+            { id: 'users', label: 'Utilisateurs', icon: 'users' },
+            { id: 'newsletter', label: 'Newsletter', icon: 'mail' },
+            { id: 'proposals', label: 'Propositions', icon: 'inbox' },
+            { id: 'reviews', label: 'Avis', icon: 'star' },
+            { id: 'orders', label: 'Commandes', icon: 'shopping-bag' },
+            { id: 'settings', label: 'Réglages', icon: 'settings' }
+        ];
+
+        function checkAuth() {
+            const user = store.currentUser;
+            if (!user || user.role !== 'owner') {
+                document.body.innerHTML = `
+                    <div class="min-h-screen flex items-center justify-center" style="background: var(--ivory);">
+                        <div class="text-center max-w-md p-8">
+                            <i data-lucide="lock" class="w-12 h-12 mx-auto mb-6" style="color: var(--burgundy);"></i>
+                            <h1 class="font-serif text-3xl font-semibold mb-4">Atelier propriétaire</h1>
+                            <p class="mb-8" style="color: var(--graphite);">Cet espace est réservé à la propriétaire du site.</p>
+                            <button onclick="loginAsOwner()" class="btn-primary justify-center w-full">
+                                Entrer en tant que propriétaire (démo)
+                            </button>
+                            <a href="index.html" class="inline-block mt-4 text-sm hover:underline" style="color: var(--burgundy);">
+                                Retour au site public
+                            </a>
+                        </div>
+                    </div>
+                `;
+                setTimeout(() => lucide.createIcons(), 50);
+                return false;
+            }
+            return true;
+        }
+
+        function loginAsOwner() {
+            store.currentUser = { email: 'sophia@dachraoui.ch', firstName: 'Sophia', lastName: 'Dachraoui', role: 'owner' };
+            setStore(store);
+            location.reload();
+        }
+
+        function initNav() {
+            const nav = document.getElementById('adminNav');
+            nav.innerHTML = sections.map(s => `
+                <button onclick="showSection('${s.id}')" class="admin-nav-item ${s.id === currentSection ? 'active' : ''}" data-section="${s.id}">
+                    <i data-lucide="${s.icon}" class="w-4 h-4"></i>
+                    ${s.label}
+                </button>
+            `).join('');
+        }
+
+        function showSection(id) {
+            currentSection = id;
+            document.querySelectorAll('[data-section]').forEach(el => {
+                el.classList.toggle('active', el.dataset.section === id);
+            });
+            document.getElementById('pageTitle').textContent = sections.find(s => s.id === id).label;
+            renderSection(id);
+            window.scrollTo(0, 0);
+        }
+
+        function renderSection(id) {
+            const container = document.getElementById('adminContent');
+            switch(id) {
+                case 'dashboard': renderDashboard(container); break;
+                case 'essays': renderEssays(container); break;
+                case 'books': renderBooks(container); break;
+                case 'courses': renderCourses(container); break;
+                case 'premium': renderPremium(container); break;
+                case 'calls': renderCalls(container); break;
+                case 'users': renderUsers(container); break;
+                case 'newsletter': renderNewsletter(container); break;
+                case 'proposals': renderProposals(container); break;
+                case 'reviews': renderReviews(container); break;
+                case 'orders': renderOrders(container); break;
+                case 'settings': renderSettings(container); break;
+            }
+            setTimeout(() => lucide.createIcons(), 50);
+        }
+
+        function renderDashboard(container) {
+            const s = store.stats || {};
+            container.innerHTML = `
+                <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+                    <div class="kpi-card">
+                        <p class="text-sm mb-2" style="color: var(--graphite);">Visites totales</p>
+                        <p class="kpi-value">${s.visits || 0}</p>
+                    </div>
+                    <div class="kpi-card">
+                        <p class="text-sm mb-2" style="color: var(--graphite);">Visiteurs uniques</p>
+                        <p class="kpi-value">${s.uniqueVisitors || 0}</p>
+                    </div>
+                    <div class="kpi-card">
+                        <p class="text-sm mb-2" style="color: var(--graphite);">Ventes CHF</p>
+                        <p class="kpi-value">${s.sales || 0}</p>
+                    </div>
+                    <div class="kpi-card">
+                        <p class="text-sm mb-2" style="color: var(--graphite);">Comptes</p>
+                        <p class="kpi-value">${s.accounts || 0}</p>
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+                    <div class="kpi-card">
+                        <p class="text-sm mb-2" style="color: var(--graphite);">Inscrits newsletter</p>
+                        <p class="kpi-value">${s.newsletterCount || 0}</p>
+                    </div>
+                    <div class="kpi-card">
+                        <p class="text-sm mb-2" style="color: var(--graphite);">Propositions</p>
+                        <p class="kpi-value">${s.proposalsCount || 0}</p>
+                    </div>
+                    <div class="kpi-card">
+                        <p class="text-sm mb-2" style="color: var(--graphite);">Avis</p>
+                        <p class="kpi-value">${s.reviewsCount || 0}</p>
+                    </div>
+                    <div class="kpi-card">
+                        <p class="text-sm mb-2" style="color: var(--graphite);">Commandes</p>
+                        <p class="kpi-value">${s.ordersCount || 0}</p>
+                    </div>
+                </div>
+                <div class="border p-6" style="border-color: var(--sand);">
+                    <h2 class="section-title">Actions rapides</h2>
+                    <div class="flex flex-wrap gap-3">
+                        <button onclick="showSection('essays'); openEssayModal()" class="btn-primary">
+                            <i data-lucide="plus" class="w-4 h-4"></i>
+                            Nouvel essai
+                        </button>
+                        <button onclick="showSection('books'); openBookModal()" class="btn-primary">
+                            <i data-lucide="plus" class="w-4 h-4"></i>
+                            Nouveau livre
+                        </button>
+                        <button onclick="showSection('calls'); openCallModal()" class="btn-primary">
+                            <i data-lucide="plus" class="w-4 h-4"></i>
+                            Nouvel appel
+                        </button>
+                        <button onclick="resetDemo()" class="btn-ghost" style="color: var(--burgundy); border-color: var(--burgundy);">
+                            <i data-lucide="refresh-cw" class="w-4 h-4"></i>
+                            Réinitialiser la démo
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderEssays(container) {
+            container.innerHTML = `
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="section-title mb-0">Tous les essais</h2>
+                    <button onclick="openEssayModal()" class="btn-primary">
+                        <i data-lucide="plus" class="w-4 h-4"></i>
+                        Ajouter
+                    </button>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Titre</th>
+                                <th>Catégorie</th>
+                                <th>Accès</th>
+                                <th>Prix</th>
+                                <th>Statut</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${(store.essays || []).map(e => `
+                                <tr>
+                                    <td>
+                                        <p class="font-medium">${escapeHtml(e.title.substring(0, 60))}${e.title.length > 60 ? '...' : ''}</p>
+                                        <p class="text-xs" style="color: var(--graphite);">${formatDate(e.createdAt)}</p>
+                                    </td>
+                                    <td>${e.category}</td>
+                                    <td>
+                                        <span class="status ${e.access === 'premium' ? 'status-published' : 'status-success'}">${e.access === 'premium' ? 'Premium' : 'Gratuit'}</span>
+                                    </td>
+                                    <td>${e.price > 0 ? e.price + ' CHF' : '-'}</td>
+                                    <td>
+                                        <span class="status ${e.status === 'published' ? 'status-published' : 'status-draft'}">${e.status === 'published' ? 'Publié' : 'Brouillon'}</span>
+                                    </td>
+                                    <td>
+                                        <div class="flex gap-2">
+                                            <button onclick="editEssay('${e.id}')" class="p-2 hover:bg-sand/50">
+                                                <i data-lucide="edit" class="w-4 h-4"></i>
+                                            </button>
+                                            <button onclick="deleteEssay('${e.id}')" class="p-2 hover:bg-sand/50" style="color: var(--burgundy);">
+                                                <i data-lucide="trash-2" class="w-4 h-4"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
+                </div>
+            `;
+        }
+
+        function renderBooks(container) {
+            container.innerHTML = `
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="section-title mb-0">Tous les livres</h2>
+                    <button onclick="openBookModal()" class="btn-primary">
+                        <i data-lucide="plus" class="w-4 h-4"></i>
+                        Ajouter
+                    </button>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Titre</th>
+                                <th>Prix</th>
+                                <th>Remise</th>
+                                <th>Stock</th>
+                                <th>Statut</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${(store.books || []).map(b => `
+                                <tr>
+                                    <td>
+                                        <p class="font-medium">${escapeHtml(b.title)}</p>
+                                        <p class="text-xs" style="color: var(--graphite);">${escapeHtml(b.subtitle.substring(0, 50))}...</p>
+                                    </td>
+                                    <td>${b.price} CHF</td>
+                                    <td>${b.discount > 0 ? b.discount + '%' : '-'}</td>
+                                    <td>${b.stock || 'N/A'}</td>
+                                    <td>
+                                        <span class="status ${b.status === 'published' ? 'status-published' : b.status === 'preorder' ? 'status-pending' : 'status-draft'}">
+                                            ${b.status === 'published' ? 'En vente' : b.status === 'preorder' ? 'Précommande' : 'Brouillon'}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <div class="flex gap-2">
+                                            <button onclick="editBook('${b.id}')" class="p-2 hover:bg-sand/50">
+                                                <i data-lucide="edit" class="w-4 h-4"></i>
+                                            </button>
+                                            <button onclick="deleteBook('${b.id}')" class="p-2 hover:bg-sand/50" style="color: var(--burgundy);">
+                                                <i data-lucide="trash-2" class="w-4 h-4"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
+                </div>
+            `;
+        }
+
+        function renderCourses(container) {
+            container.innerHTML = `
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="section-title mb-0">Tous les cours</h2>
+                    <button onclick="openCourseModal()" class="btn-primary">
+                        <i data-lucide="plus" class="w-4 h-4"></i>
+                        Ajouter
+                    </button>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Titre</th>
+                                <th>Type</th>
+                                <th>Prix</th>
+                                <th>Places</th>
+                                <th>Statut</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${(store.courses || []).map(c => `
+                                <tr>
+                                    <td>
+                                        <p class="font-medium">${escapeHtml(c.title)}</p>
+                                        <p class="text-xs" style="color: var(--graphite);">${c.duration} · ${c.format}</p>
+                                    </td>
+                                    <td>${c.type}</td>
+                                    <td>${c.price} CHF</td>
+                                    <td>${c.seats}</td>
+                                    <td>
+                                        <span class="status ${c.status === 'published' ? 'status-published' : 'status-draft'}">${c.status === 'published' ? 'Publié' : 'Brouillon'}</span>
+                                    </td>
+                                    <td>
+                                        <div class="flex gap-2">
+                                            <button onclick="editCourse('${c.id}')" class="p-2 hover:bg-sand/50">
+                                                <i data-lucide="edit" class="w-4 h-4"></i>
+                                            </button>
+                                            <button onclick="deleteCourse('${c.id}')" class="p-2 hover:bg-sand/50" style="color: var(--burgundy);">
+                                                <i data-lucide="trash-2" class="w-4 h-4"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
+                </div>
+            `;
+        }
+
+        function renderPremium(container) {
+            const subs = store.orders?.filter(o => o.items.some(i => i.type === 'subscription')) || [];
+            container.innerHTML = `
+                <h2 class="section-title">Abonnements premium</h2>
+                <div class="overflow-x-auto">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Utilisateur</th>
+                                <th>Type</th>
+                                <th>Montant</th>
+                                <th>Date</th>
+                                <th>Statut</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${subs.length > 0 ? subs.map(s => `
+                                <tr>
+                                    <td>${escapeHtml(s.userEmail)}</td>
+                                    <td>${s.items[0].name}</td>
+                                    <td>${s.total} CHF</td>
+                                    <td>${formatDate(s.date)}</td>
+                                    <td><span class="status status-success">Actif</span></td>
+                                </tr>
+                            `).join('') : '<tr><td colspan="5" class="text-center py-8" style="color: var(--graphite);">Aucun abonnement pour le moment.</td></tr>'}
+                        </tbody>
+                    </table>
+                </div>
+            `;
+        }
+
+        function renderCalls(container) {
+            container.innerHTML = `
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="section-title mb-0">Appels à contribution</h2>
+                    <button onclick="openCallModal()" class="btn-primary">
+                        <i data-lucide="plus" class="w-4 h-4"></i>
+                        Ajouter
+                    </button>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Titre</th>
+                                <th>Date limite</th>
+                                <th>Statut</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${(store.calls || []).map(c => `
+                                <tr>
+                                    <td>
+                                        <p class="font-medium">${escapeHtml(c.title)}</p>
+                                        <p class="text-xs" style="color: var(--graphite);">${escapeHtml(c.subtitle)}</p>
+                                    </td>
+                                    <td>${formatDate(c.deadline)}</td>
+                                    <td>
+                                        <span class="status ${c.status === 'open' ? 'status-success' : 'status-draft'}">${c.status === 'open' ? 'Ouvert' : 'Clos'}</span>
+                                    </td>
+                                    <td>
+                                        <div class="flex gap-2">
+                                            <button onclick="editCall('${c.id}')" class="p-2 hover:bg-sand/50">
+                                                <i data-lucide="edit" class="w-4 h-4"></i>
+                                            </button>
+                                            <button onclick="deleteCall('${c.id}')" class="p-2 hover:bg-sand/50" style="color: var(--burgundy);">
+                                                <i data-lucide="trash-2" class="w-4 h-4"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
+                </div>
+            `;
+        }
+
+        function renderUsers(container) {
+            container.innerHTML = `
+                <h2 class="section-title">Utilisateurs</h2>
+                <div class="overflow-x-auto">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Nom</th>
+                                <th>Email</th>
+                                <th>Rôle</th>
+                                <th>Date d'inscription</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${(store.users || []).map(u => `
+                                <tr>
+                                    <td>${escapeHtml(u.firstName)} ${escapeHtml(u.lastName)}</td>
+                                    <td>${escapeHtml(u.email)}</td>
+                                    <td>
+                                        <span class="status ${u.role === 'owner' ? 'status-published' : 'status-success'}">${u.role === 'owner' ? 'Propriétaire' : 'Membre'}</span>
+                                    </td>
+                                    <td>${formatDate(u.createdAt)}</td>
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
+                </div>
+            `;
+        }
+
+        function renderNewsletter(container) {
+            container.innerHTML = `
+                <h2 class="section-title">Inscrits newsletter</h2>
+                <div class="overflow-x-auto">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Email</th>
+                                <th>Date d'inscription</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${(store.newsletter || []).map(n => `
+                                <tr>
+                                    <td>${escapeHtml(n.email)}</td>
+                                    <td>${formatDate(n.date)}</td>
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
+                </div>
+            `;
+        }
+
+        function renderProposals(container) {
+            container.innerHTML = `
+                <h2 class="section-title">Propositions reçues</h2>
+                <div class="overflow-x-auto">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Auteur</th>
+                                <th>Titre</th>
+                                <th>Appel</th>
+                                <th>Date</th>
+                                <th>Statut</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${(store.proposals || []).map(p => `
+                                <tr>
+                                    <td>
+                                        <p class="font-medium">${escapeHtml(p.name)}</p>
+                                        <p class="text-xs" style="color: var(--graphite);">${escapeHtml(p.email)}</p>
+                                    </td>
+                                    <td>${escapeHtml(p.title)}</td>
+                                    <td>${p.callId ? escapeHtml((store.calls || []).find(c => c.id === p.callId)?.title || p.callId) : 'Libre'}</td>
+                                    <td>${formatDate(p.date)}</td>
+                                    <td>
+                                        <span class="status ${p.status === 'pending' ? 'status-pending' : p.status === 'accepted' ? 'status-success' : 'status-draft'}">
+                                            ${p.status === 'pending' ? 'En attente' : p.status === 'accepted' ? 'Acceptée' : 'Refusée'}
+                                        </span>
+                                    </td>
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
+                </div>
+            `;
+        }
+
+        function renderReviews(container) {
+            container.innerHTML = `
+                <h2 class="section-title">Avis des lecteurs</h2>
+                <div class="overflow-x-auto">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Auteur</th>
+                                <th>Contenu</th>
+                                <th>Note</th>
+                                <th>Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${(store.reviews || []).map(r => `
+                                <tr>
+                                    <td>${escapeHtml(r.author)}</td>
+                                    <td>
+                                        <p class="text-sm">${escapeHtml(r.text)}</p>
+                                        <p class="text-xs" style="color: var(--graphite);">${r.itemType} · ${escapeHtml((store.essays?.find(e => e.id === r.itemId)?.title || store.books?.find(b => b.id === r.itemId)?.title || store.courses?.find(c => c.id === r.itemId)?.title || r.itemId))}</p>
+                                    </td>
+                                    <td>
+                                        <div class="stars text-sm">
+                                            ${[1,2,3,4,5].map(n => `<span style="color: ${n <= r.rating ? 'var(--gold)' : 'var(--sand)'};">★</span>`).join('')}
+                                        </div>
+                                    </td>
+                                    <td>${formatDate(r.date)}</td>
+                                    <td>
+                                        <button onclick="deleteReview('${r.id}')" class="p-2 hover:bg-sand/50" style="color: var(--burgundy);">
+                                            <i data-lucide="trash-2" class="w-4 h-4"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
+                </div>
+            `;
+        }
+
+        function renderOrders(container) {
+            container.innerHTML = `
+                <h2 class="section-title">Commandes</h2>
+                <div class="overflow-x-auto">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>N°</th>
+                                <th>Client</th>
+                                <th>Contenu</th>
+                                <th>Total</th>
+                                <th>Date</th>
+                                <th>Statut</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${(store.orders || []).map(o => `
+                                <tr>
+                                    <td>${o.id}</td>
+                                    <td>${escapeHtml(o.userEmail)}</td>
+                                    <td>${o.items.map(i => escapeHtml(i.name)).join(', ')}</td>
+                                    <td>${o.total} CHF</td>
+                                    <td>${formatDate(o.date)}</td>
+                                    <td>
+                                        <span class="status ${o.status === 'completed' ? 'status-success' : 'status-pending'}">${o.status === 'completed' ? 'Payée' : 'En attente'}</span>
+                                    </td>
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
+                </div>
+            `;
+        }
+
+        function renderSettings(container) {
+            const settings = store.settings || {};
+            container.innerHTML = `
+                <h2 class="section-title">Réglages du site</h2>
+                <form onsubmit="saveSettings(event)" class="max-w-lg space-y-6">
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Nom du site</label>
+                        <input type="text" name="siteName" value="${escapeHtml(settings.siteName || 'Sophia Dachraoui')}" class="input-editorial">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Devise du site</label>
+                        <input type="text" name="tagline" value="${escapeHtml(settings.tagline || 'Écriture · Littérature · Recherche · Transmission')}" class="input-editorial">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Email public</label>
+                        <input type="email" name="contactEmail" value="${escapeHtml(settings.contactEmail || 'contact@dachraoui.ch')}" class="input-editorial">
+                    </div>
+                    <button type="submit" class="btn-primary">Enregistrer</button>
+                </form>
+            `;
+        }
+
+        function openModal(content) {
+            document.getElementById('modalContent').innerHTML = content;
+            document.getElementById('modal').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('modal').classList.remove('active');
+        }
+
+        function closeModalOnBackdrop(e) {
+            if (e.target === e.currentTarget) closeModal();
+        }
+
+        function openEssayModal(essay = null) {
+            const isEdit = !!essay;
+            openModal(`
+                <h3 class="font-serif text-2xl font-semibold mb-6">${isEdit ? 'Modifier' : 'Nouvel'} essai</h3>
+                <form onsubmit="saveEssay(event, '${essay?.id || ''}')" class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Titre</label>
+                        <input type="text" name="title" required value="${escapeHtml(essay?.title || '')}" class="input-editorial">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Chapô</label>
+                        <textarea name="lede" required rows="3" class="input-editorial">${escapeHtml(essay?.lede || '')}</textarea>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Corps</label>
+                        <textarea name="body" required rows="10" class="input-editorial">${escapeHtml(essay?.body || '')}</textarea>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Catégorie</label>
+                            <select name="category" class="input-editorial">
+                                <option value="Anthropologie" ${essay?.category === 'Anthropologie' ? 'selected' : ''}>Anthropologie</option>
+                                <option value="Symbolisme" ${essay?.category === 'Symbolisme' ? 'selected' : ''}>Symbolisme</option>
+                                <option value="Littérature africaine" ${essay?.category === 'Littérature africaine' ? 'selected' : ''}>Littérature africaine</option>
+                                <option value="Psychanalyse" ${essay?.category === 'Psychanalyse' ? 'selected' : ''}>Psychanalyse</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Accès</label>
+                            <select name="access" class="input-editorial" onchange="this.value === 'premium' ? document.getElementById('priceField').style.display='block' : document.getElementById('priceField').style.display='none'">
+                                <option value="free" ${essay?.access === 'free' ? 'selected' : ''}>Gratuit</option>
+                                <option value="premium" ${essay?.access === 'premium' ? 'selected' : ''}>Premium</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div id="priceField" style="display: ${essay?.access === 'premium' ? 'block' : 'none'}">
+                        <label class="block text-sm font-medium mb-2">Prix (CHF)</label>
+                        <input type="number" name="price" value="${essay?.price || 12}" class="input-editorial">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Statut</label>
+                        <select name="status" class="input-editorial">
+                            <option value="draft" ${essay?.status === 'draft' ? 'selected' : ''}>Brouillon</option>
+                            <option value="published" ${essay?.status === 'published' ? 'selected' : ''}>Publié</option>
+                        </select>
+                    </div>
+                    <div class="flex gap-3 pt-4">
+                        <button type="submit" class="btn-primary">Enregistrer</button>
+                        <button type="button" onclick="closeModal()" class="btn-ghost">Annuler</button>
+                    </div>
+                </form>
+            `);
+        }
+
+        function saveEssay(e, id) {
+            e.preventDefault();
+            const form = e.target;
+            const essay = {
+                id: id || 'essay-' + Date.now(),
+                title: form.title.value,
+                lede: form.lede.value,
+                body: form.body.value,
+                category: form.category.value,
+                access: form.access.value,
+                price: parseInt(form.price.value) || 0,
+                status: form.status.value,
+                author: 'Sophia Dachraoui',
+                createdAt: id ? (store.essays.find(e => e.id === id)?.createdAt || new Date().toISOString()) : new Date().toISOString()
+            };
+            if (id) {
+                const idx = store.essays.findIndex(e => e.id === id);
+                store.essays[idx] = essay;
+            } else {
+                store.essays.push(essay);
+            }
+            setStore(store);
+            closeModal();
+            showToast(id ? 'Essai modifié' : 'Essai créé');
+            renderSection('essays');
+        }
+
+        function editEssay(id) {
+            const essay = store.essays.find(e => e.id === id);
+            openEssayModal(essay);
+        }
+
+        function deleteEssay(id) {
+            if (!confirm('Supprimer cet essai ?')) return;
+            store.essays = store.essays.filter(e => e.id !== id);
+            setStore(store);
+            showToast('Essai supprimé');
+            renderSection('essays');
+        }
+
+        function openBookModal(book = null) {
+            const isEdit = !!book;
+            openModal(`
+                <h3 class="font-serif text-2xl font-semibold mb-6">${isEdit ? 'Modifier' : 'Nouveau'} livre</h3>
+                <form onsubmit="saveBook(event, '${book?.id || ''}')" class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Titre</label>
+                        <input type="text" name="title" required value="${escapeHtml(book?.title || '')}" class="input-editorial">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Sous-titre</label>
+                        <input type="text" name="subtitle" value="${escapeHtml(book?.subtitle || '')}" class="input-editorial">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Description</label>
+                        <textarea name="description" rows="5" class="input-editorial">${escapeHtml(book?.description || '')}</textarea>
+                    </div>
+                    <div class="grid grid-cols-3 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Prix</label>
+                            <input type="number" name="price" required value="${book?.price || 30}" class="input-editorial">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Remise %</label>
+                            <input type="number" name="discount" value="${book?.discount || 0}" class="input-editorial">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Stock</label>
+                            <input type="number" name="stock" value="${book?.stock || 0}" class="input-editorial">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Statut</label>
+                        <select name="status" class="input-editorial">
+                            <option value="draft" ${book?.status === 'draft' ? 'selected' : ''}>Brouillon</option>
+                            <option value="published" ${book?.status === 'published' ? 'selected' : ''}>En vente</option>
+                            <option value="preorder" ${book?.status === 'preorder' ? 'selected' : ''}>Précommande</option>
+                        </select>
+                    </div>
+                    <div class="flex gap-3 pt-4">
+                        <button type="submit" class="btn-primary">Enregistrer</button>
+                        <button type="button" onclick="closeModal()" class="btn-ghost">Annuler</button>
+                    </div>
+                </form>
+            `);
+        }
+
+        function saveBook(e, id) {
+            e.preventDefault();
+            const form = e.target;
+            const book = {
+                id: id || 'book-' + Date.now(),
+                title: form.title.value,
+                subtitle: form.subtitle.value,
+                description: form.description.value,
+                price: parseInt(form.price.value),
+                discount: parseInt(form.discount.value) || 0,
+                stock: parseInt(form.stock.value) || 0,
+                status: form.status.value,
+                category: 'Essai',
+                blurb: form.description.value.substring(0, 150) + '...',
+                pages: 300,
+                publisher: 'À confirmer',
+                isbn: 'À attribution',
+                releaseDate: '2025',
+                createdAt: id ? (store.books.find(b => b.id === id)?.createdAt || new Date().toISOString()) : new Date().toISOString()
+            };
+            if (id) {
+                const idx = store.books.findIndex(b => b.id === id);
+                store.books[idx] = book;
+            } else {
+                store.books.push(book);
+            }
+            setStore(store);
+            closeModal();
+            showToast(id ? 'Livre modifié' : 'Livre créé');
+            renderSection('books');
+        }
+
+        function editBook(id) {
+            const book = store.books.find(b => b.id === id);
+            openBookModal(book);
+        }
+
+        function deleteBook(id) {
+            if (!confirm('Supprimer ce livre ?')) return;
+            store.books = store.books.filter(b => b.id !== id);
+            setStore(store);
+            showToast('Livre supprimé');
+            renderSection('books');
+        }
+
+        function openCourseModal(course = null) {
+            const isEdit = !!course;
+            openModal(`
+                <h3 class="font-serif text-2xl font-semibold mb-6">${isEdit ? 'Modifier' : 'Nouveau'} cours</h3>
+                <form onsubmit="saveCourse(event, '${course?.id || ''}')" class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Titre</label>
+                        <input type="text" name="title" required value="${escapeHtml(course?.title || '')}" class="input-editorial">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Type</label>
+                        <select name="type" class="input-editorial">
+                            <option value="Séminaire universitaire" ${course?.type === 'Séminaire universitaire' ? 'selected' : ''}>Séminaire universitaire</option>
+                            <option value="Module privé" ${course?.type === 'Module privé' ? 'selected' : ''}>Module privé</option>
+                            <option value="Ressources" ${course?.type === 'Ressources' ? 'selected' : ''}>Ressources</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Description</label>
+                        <textarea name="description" rows="5" class="input-editorial">${escapeHtml(course?.description || '')}</textarea>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Prix</label>
+                            <input type="number" name="price" required value="${course?.price || 300}" class="input-editorial">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Places</label>
+                            <input type="number" name="seats" value="${course?.seats || 15}" class="input-editorial">
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Durée</label>
+                            <input type="text" name="duration" value="${escapeHtml(course?.duration || '12 séances')}" class="input-editorial">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Format</label>
+                            <input type="text" name="format" value="${escapeHtml(course?.format || 'Présentiel')}" class="input-editorial">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Statut</label>
+                        <select name="status" class="input-editorial">
+                            <option value="draft" ${course?.status === 'draft' ? 'selected' : ''}>Brouillon</option>
+                            <option value="published" ${course?.status === 'published' ? 'selected' : ''}>Publié</option>
+                        </select>
+                    </div>
+                    <div class="flex gap-3 pt-4">
+                        <button type="submit" class="btn-primary">Enregistrer</button>
+                        <button type="button" onclick="closeModal()" class="btn-ghost">Annuler</button>
+                    </div>
+                </form>
+            `);
+        }
+
+        function saveCourse(e, id) {
+            e.preventDefault();
+            const form = e.target;
+            const course = {
+                id: id || 'course-' + Date.now(),
+                title: form.title.value,
+                type: form.type.value,
+                description: form.description.value,
+                price: parseInt(form.price.value),
+                duration: form.duration.value,
+                format: form.format.value,
+                seats: parseInt(form.seats.value) || 15,
+                nextSession: 'Sur demande',
+                status: form.status.value,
+                createdAt: id ? (store.courses.find(c => c.id === id)?.createdAt || new Date().toISOString()) : new Date().toISOString()
+            };
+            if (id) {
+                const idx = store.courses.findIndex(c => c.id === id);
+                store.courses[idx] = course;
+            } else {
+                store.courses.push(course);
+            }
+            setStore(store);
+            closeModal();
+            showToast(id ? 'Cours modifié' : 'Cours créé');
+            renderSection('courses');
+        }
+
+        function editCourse(id) {
+            const course = store.courses.find(c => c.id === id);
+            openCourseModal(course);
+        }
+
+        function deleteCourse(id) {
+            if (!confirm('Supprimer ce cours ?')) return;
+            store.courses = store.courses.filter(c => c.id !== id);
+            setStore(store);
+            showToast('Cours supprimé');
+            renderSection('courses');
+        }
+
+        function openCallModal(call = null) {
+            const isEdit = !!call;
+            openModal(`
+                <h3 class="font-serif text-2xl font-semibold mb-6">${isEdit ? 'Modifier' : 'Nouvel'} appel</h3>
+                <form onsubmit="saveCall(event, '${call?.id || ''}')" class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Titre</label>
+                        <input type="text" name="title" required value="${escapeHtml(call?.title || '')}" class="input-editorial">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Sous-titre</label>
+                        <input type="text" name="subtitle" value="${escapeHtml(call?.subtitle || '')}" class="input-editorial">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Description</label>
+                        <textarea name="description" rows="5" class="input-editorial">${escapeHtml(call?.description || '')}</textarea>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Date limite</label>
+                        <input type="date" name="deadline" required value="${call?.deadline || ''}" class="input-editorial">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Statut</label>
+                        <select name="status" class="input-editorial">
+                            <option value="open" ${call?.status === 'open' ? 'selected' : ''}>Ouvert</option>
+                            <option value="closed" ${call?.status === 'closed' ? 'selected' : ''}>Clos</option>
+                        </select>
+                    </div>
+                    <div class="flex gap-3 pt-4">
+                        <button type="submit" class="btn-primary">Enregistrer</button>
+                        <button type="button" onclick="closeModal()" class="btn-ghost">Annuler</button>
+                    </div>
+                </form>
+            `);
+        }
+
+        function saveCall(e, id) {
+            e.preventDefault();
+            const form = e.target;
+            const call = {
+                id: id || 'call-' + Date.now(),
+                title: form.title.value,
+                subtitle: form.subtitle.value,
+                description: form.description.value,
+                deadline: form.deadline.value,
+                status: form.status.value,
+                createdAt: id ? (store.calls.find(c => c.id === id)?.createdAt || new Date().toISOString()) : new Date().toISOString()
+            };
+            if (id) {
+                const idx = store.calls.findIndex(c => c.id === id);
+                store.calls[idx] = call;
+            } else {
+                store.calls.push(call);
+            }
+            setStore(store);
+            closeModal();
+            showToast(id ? 'Appel modifié' : 'Appel créé');
+            renderSection('calls');
+        }
+
+        function editCall(id) {
+            const call = store.calls.find(c => c.id === id);
+            openCallModal(call);
+        }
+
+        function deleteCall(id) {
+            if (!confirm('Supprimer cet appel ?')) return;
+            store.calls = store.calls.filter(c => c.id !== id);
+            setStore(store);
+            showToast('Appel supprimé');
+            renderSection('calls');
+        }
+
+        function deleteReview(id) {
+            if (!confirm('Supprimer cet avis ?')) return;
+            store.reviews = store.reviews.filter(r => r.id !== id);
+            store.stats.reviewsCount = Math.max(0, (store.stats.reviewsCount || 0) - 1);
+            setStore(store);
+            showToast('Avis supprimé');
+            renderSection('reviews');
+        }
+
+        function saveSettings(e) {
+            e.preventDefault();
+            store.settings = {
+                siteName: e.target.siteName.value,
+                tagline: e.target.tagline.value,
+                contactEmail: e.target.contactEmail.value
+            };
+            setStore(store);
+            showToast('Réglages enregistrés');
+        }
+
+        function resetDemo() {
+            if (!confirm('Réinitialiser toutes les données de démonstration ? Cette action est irréversible.')) return;
+            localStorage.removeItem(STORAGE_KEY);
+            location.reload();
+        }
+
+        function logout() {
+            store.currentUser = null;
+            setStore(store);
+            location.href = 'index.html';
+        }
+
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('open');
+            document.getElementById('mobileOverlay').classList.toggle('hidden');
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text || '';
+            return div.innerHTML;
+        }
+
+        function formatDate(dateStr) {
+            if (!dateStr) return '-';
+            const d = new Date(dateStr);
+            return d.toLocaleDateString('fr-FR', { day: 'numeric', month: 'short', year: 'numeric' });
+        }
+
+        function init() {
+            if (!checkAuth()) return;
+            initNav();
+            showSection('dashboard');
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', init);
+        } else {
+            init();
+        }
+    </script>
+</body>
+</html>

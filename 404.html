@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page non trouvée — Sophia Dachraoui</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --ivory: #FAF8F5;
+            --ink: #111827;
+            --graphite: #334155;
+            --burgundy: #6B1D2F;
+            --sand: #E5E0D8;
+            --gold-soft: #C4A35A;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--ivory);
+            color: var(--ink);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+        }
+        .font-serif { font-family: 'Cormorant Garamond', serif; }
+        .code {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 8rem;
+            font-weight: 600;
+            color: var(--sand);
+            line-height: 1;
+        }
+        .hairline {
+            width: 60px;
+            height: 1px;
+            background: var(--gold-soft);
+            margin: 2rem auto;
+            opacity: 0.6;
+        }
+        a {
+            color: var(--burgundy);
+            text-decoration: none;
+        }
+        a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <p class="code">404</p>
+    <div class="hairline"></div>
+    <h1 class="font-serif text-3xl mb-4">Cette page s'est égarée</h1>
+    <p class="mb-8" style="color: var(--graphite); max-width: 400px;">Le seuil que vous cherchez ne mène nulle part. Revenez vers des espaces connus.</p>
+    <a href="index.html#accueil" style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.875rem 2rem; background: var(--burgundy); color: white; font-size: 0.875rem;">Retour à l'accueil</a>
+    <footer style="position: absolute; bottom: 2rem; font-size: 0.75rem; color: var(--graphite);">Démonstration éditoriale — contenus de présentation.</footer>
+</body>
+</html>
